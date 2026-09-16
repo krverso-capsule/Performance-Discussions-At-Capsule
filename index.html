@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Performance discussions — manager guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #1C1726;
+    --ink-soft:   #565064;
+    --ink-faint:  #8A8496;
+    --violet:     #4A2A8A;
+    --violet-pale:#EFEAF8;
+    --clay:       #9E3320;
+    --clay-pale:  #FBEFEC;
+    --paper:      #FFFFFF;
+    --panel:      #F6F5F8;
+    --rule:       #DEDBE4;
+
+    --sans: "Public Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 2rem; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---- shell ---------------------------------------------------------- */
+
+  .shell {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 2rem 6rem;
+    display: grid;
+    grid-template-columns: 15rem minmax(0, 1fr);
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .masthead {
+    grid-column: 1 / -1;
+    padding: 4rem 0 2.5rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 3rem;
+    display: flex;
+    gap: 3rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .masthead-text { flex: 1 1 28rem; }
+  .masthead h1 {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 .75rem;
+    max-width: 22ch;
+  }
+  .masthead p {
+    margin: 0;
+    max-width: 58ch;
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+  }
+  .masthead .origin {
+    margin-top: 1.5rem;
+    font-family: var(--sans);
+    font-size: .8rem;
+    line-height: 1.5;
+    color: var(--ink-faint);
+    max-width: 52ch;
+  }
+
+  .jump {
+    flex: 0 0 17rem;
+    background: var(--panel);
+    border-radius: 6px;
+    padding: 1.25rem;
+    text-align: center;
+    font-family: var(--sans);
+  }
+  .jump p {
+    margin: 0 0 .25rem;
+    font-size: .82rem;
+    font-weight: 600;
+    color: var(--violet);
+    max-width: none;
+  }
+  .jump .sub {
+    font-weight: 400;
+    color: var(--ink-soft);
+    margin-bottom: .9rem;
+  }
+  .jump a {
+    display: block;
+    padding: .5rem .75rem;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: var(--paper);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: .88rem;
+    font-weight: 600;
+  }
+  .jump a:hover { border-color: var(--violet); color: var(--violet); }
+  .jump a:focus-visible { outline: 2px solid var(--violet); outline-offset: 2px; }
+
+  /* ---- contents rail -------------------------------------------------- */
+
+  .rail { position: sticky; top: 2rem; font-family: var(--sans); }
+  .rail h2 {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    color: var(--ink-faint);
+    margin: 0 0 .9rem;
+  }
+  .rail ol { list-style: none; margin: 0; padding: 0; }
+  .rail a {
+    display: block;
+    padding: .38rem 0 .38rem .85rem;
+    border-left: 2px solid var(--rule);
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: .88rem;
+    line-height: 1.35;
+    transition: color .15s, border-color .15s;
+  }
+  .rail a:hover { color: var(--ink); border-left-color: var(--ink-faint); }
+  .rail a.here { color: var(--violet); font-weight: 600; border-left-color: var(--violet); }
+  .rail a:focus-visible { outline: 2px solid var(--violet); outline-offset: 2px; }
+
+  /* ---- sections ------------------------------------------------------- */
+
+  section { margin: 0 0 4.5rem; scroll-margin-top: 2rem; }
+  section > :first-child { margin-top: 0; }
+
+  h2 {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 1.55rem;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    margin: 0 0 .5rem;
+  }
+  h3 {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 1.02rem;
+    margin: 2.25rem 0 .6rem;
+  }
+  .standfirst {
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    margin: 0 0 1.75rem;
+    max-width: 62ch;
+  }
+  p { max-width: 68ch; margin: 0 0 1.1rem; }
+  a { color: var(--violet); }
+
+  /* ---- guidance rules ------------------------------------------------- */
+
+  .tenet {
+    border-left: 2px solid var(--rule);
+    padding: .1rem 0 .1rem 1.5rem;
+    margin: 0 0 1.75rem;
+    max-width: 66ch;
+  }
+  .tenet strong {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: .95rem;
+    display: block;
+    margin-bottom: .25rem;
+  }
+  .tenet p { margin: 0; }
+
+  .caution {
+    border-left: 3px solid var(--clay);
+    background: var(--clay-pale);
+    padding: 1rem 1.25rem;
+    margin: 1.75rem 0;
+    max-width: 66ch;
+    font-size: .95rem;
+  }
+  .caution p { margin: 0; max-width: none; }
+
+  /* ---- steps ---------------------------------------------------------- */
+
+  .steps { list-style: none; counter-reset: s; margin: 0 0 1.5rem; padding: 0; max-width: 68ch; }
+  .steps li {
+    counter-increment: s;
+    position: relative;
+    padding-left: 2.4rem;
+    margin-bottom: 1.4rem;
+  }
+  .steps li::before {
+    content: counter(s);
+    position: absolute;
+    left: 0; top: .1rem;
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: .95rem;
+    color: var(--violet);
+  }
+  .steps strong {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: .98rem;
+    display: block;
+    margin-bottom: .15rem;
+  }
+  .steps p { margin: 0 0 .5rem; font-size: .97rem; }
+  .steps p:last-child { margin-bottom: 0; }
+
+  /* Unnumbered variant, for a pair of alternatives rather than a sequence. */
+  .pair { list-style: none; margin: 0 0 1.5rem; padding: 0; max-width: 68ch; }
+  .pair li { margin-bottom: 1.4rem; }
+  .pair strong {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: .98rem;
+    display: block;
+    margin-bottom: .15rem;
+  }
+  .pair p { margin: 0 0 .5rem; font-size: .97rem; }
+  .pair p:last-child { margin-bottom: 0; }
+
+  /* ---- tables --------------------------------------------------------- */
+
+  .sheet { overflow-x: auto; margin: 0 0 1.75rem; }
+  table {
+    border-collapse: collapse;
+    font-family: var(--sans);
+    font-size: .9rem;
+    width: 100%;
+    min-width: 34rem;
+  }
+  th {
+    text-align: left;
+    font-weight: 600;
+    font-size: .76rem;
+    color: var(--ink-faint);
+    padding: 0 1.25rem .5rem 0;
+    border-bottom: 1px solid var(--ink);
+    vertical-align: bottom;
+  }
+  td {
+    padding: .7rem 1.25rem .7rem 0;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    line-height: 1.45;
+  }
+  td:first-child { font-weight: 600; }
+  tbody tr:last-child td { border-bottom: none; }
+
+  /* ---- planner -------------------------------------------------------- */
+
+  .planner {
+    background: var(--panel);
+    border-radius: 6px;
+    padding: 1.75rem;
+    margin: 0 0 1.5rem;
+  }
+  .controls { display: flex; flex-wrap: wrap; gap: 1.25rem; align-items: flex-end; }
+  .control { display: flex; flex-direction: column; gap: .35rem; min-width: 13rem; flex: 1; }
+  .control label {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: .78rem;
+    color: var(--ink-soft);
+  }
+  select {
+    font-family: var(--sans);
+    font-size: .92rem;
+    padding: .55rem .7rem;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: var(--paper);
+    color: var(--ink);
+    width: 100%;
+  }
+  select:disabled { color: var(--ink-faint); background: #EDECF0; }
+  select:focus-visible { outline: 2px solid var(--violet); outline-offset: 1px; }
+
+  .ghost {
+    font-family: var(--sans);
+    font-size: .85rem;
+    font-weight: 500;
+    color: var(--violet);
+    background: none;
+    border: none;
+    padding: .55rem .4rem;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .ghost:focus-visible { outline: 2px solid var(--violet); outline-offset: 2px; }
+
+  .prompt {
+    font-family: var(--sans);
+    font-size: .92rem;
+    color: var(--ink-soft);
+    margin: 1.5rem 0 0;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .readout { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); }
+  .facts { display: flex; flex-wrap: wrap; gap: 2.25rem; margin-bottom: 1.75rem; }
+  .fact { min-width: 11rem; }
+  .fact dt {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: .72rem;
+    color: var(--ink-faint);
+    margin-bottom: .2rem;
+  }
+  .fact dd {
+    font-family: var(--sans);
+    font-size: 1.12rem;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .sections-head {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: .78rem;
+    color: var(--ink-faint);
+    margin: 0 0 .6rem;
+  }
+  .section-list { list-style: none; margin: 0; padding: 0; font-family: var(--sans); }
+  .section-list li {
+    display: flex;
+    gap: .9rem;
+    align-items: baseline;
+    padding: .45rem 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: .9rem;
+  }
+  .section-list li:last-child { border-bottom: none; }
+  .mark { flex: 0 0 1rem; font-weight: 700; }
+  .on  .mark { color: var(--violet); }
+  .off .mark { color: var(--ink-faint); }
+  .off .name, .off .gloss { color: var(--ink-faint); }
+  .name { flex: 0 0 13rem; font-weight: 600; }
+  .gloss { color: var(--ink-soft); }
+
+  /* ---- checklist ------------------------------------------------------ */
+
+  .checklist { list-style: none; margin: 0 0 1rem; padding: 0; max-width: 62ch; }
+  .checklist li { border-bottom: 1px solid var(--rule); }
+  .checklist label {
+    display: flex;
+    gap: .8rem;
+    align-items: flex-start;
+    padding: .7rem 0;
+    cursor: pointer;
+    font-size: .98rem;
+  }
+  .checklist input { margin: .3rem 0 0; accent-color: var(--violet); flex: 0 0 auto; }
+  .checklist input:checked + span { color: var(--ink-faint); text-decoration: line-through; }
+  .tally {
+    font-family: var(--sans);
+    font-size: .85rem;
+    color: var(--ink-soft);
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  /* ---- accordion ------------------------------------------------------ */
+
+  .qa { border-top: 1px solid var(--rule); max-width: 68ch; }
+  .qa:last-of-type { border-bottom: 1px solid var(--rule); }
+  .qa button {
+    width: 100%;
+    display: flex;
+    gap: .9rem;
+    align-items: baseline;
+    background: none;
+    border: none;
+    padding: .95rem 0;
+    text-align: left;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: .98rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .qa button:focus-visible { outline: 2px solid var(--violet); outline-offset: -2px; }
+  .qa .sign { color: var(--violet); font-weight: 700; flex: 0 0 .7rem; }
+  .qa .answer { padding: 0 0 1.1rem 1.6rem; }
+  .qa .answer p { font-size: .97rem; margin-bottom: .7rem; }
+  .qa .answer p:last-child { margin-bottom: 0; }
+  .qa .answer[hidden] { display: none; }
+  .qa .answer ol { font-size: .97rem; padding-left: 1.2rem; margin: 0 0 .7rem; }
+  .qa .answer li { margin-bottom: .5rem; }
+
+  .footnote {
+    font-family: var(--sans);
+    font-size: .85rem;
+    color: var(--ink-faint);
+    border-top: 1px solid var(--rule);
+    padding-top: 1.5rem;
+    max-width: 62ch;
+  }
+
+  @media (max-width: 860px) {
+    .shell { grid-template-columns: 1fr; gap: 0; padding: 0 1.25rem 4rem; }
+    .rail { position: static; margin-bottom: 3rem; }
+    .rail ol { display: flex; flex-wrap: wrap; gap: .4rem 1.25rem; }
+    .rail a { border-left: none; padding: .2rem 0; }
+    .rail a.here { border-left: none; }
+    .jump { flex-basis: 100%; }
+    .name { flex-basis: 100%; }
+    .section-list li { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <header class="masthead">
+    <div class="masthead-text">
+      <h1>Running and recording a performance discussion</h1>
+      <p>Discussions about attendance, performance, and behavior are how team members learn where they stand. Done well, they open a path forward. Done carelessly, they close one.</p>
+      <p class="origin">This mirrors the Overview &amp; Guidelines page in Rippling, which is the copy managers see. Kept here so the content can be reviewed outside the function editor — change both together.</p>
+    </div>
+
+    <div class="jump">
+      <p>Need this reference open while you work?</p>
+      <p class="sub">Opens the page in a new tab.</p>
+      <a href="https://app.rippling.com/custom-apps/0d1161c326c14d72b9c7b534/sdui/6aa480232c8883ae1afdb7e3" target="_blank" rel="noopener">Performance Discussion Actions</a>
+    </div>
+  </header>
+
+  <nav class="rail" aria-label="Contents">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#plan">Plan a discussion</a></li>
+      <li><a href="#before">Before you start</a></li>
+      <li><a href="#where">Where things live</a></li>
+      <li><a href="#access">Who can do what</a></li>
+      <li><a href="#create">Create a discussion</a></li>
+      <li><a href="#review">Review existing</a></li>
+      <li><a href="#termination">Termination notices</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <!-- ============================================================ -->
+    <section id="plan">
+      <h2>Plan a discussion</h2>
+      <p class="standfirst">What you pick at the start decides which sections you fill in, how long the discussion stays in effect, and when the document reaches the team member.</p>
+
+      <div class="planner">
+        <div class="controls">
+          <div class="control">
+            <label for="p-type">Discussion type</label>
+            <select id="p-type">
+              <option value="">Select a type</option>
+              <option>Memo of Conversation</option>
+              <option>Warning</option>
+              <option>Termination Notice</option>
+            </select>
+          </div>
+          <div class="control">
+            <label for="p-reason">Reason</label>
+            <select id="p-reason" disabled>
+              <option value="">Select a type first</option>
+            </select>
+          </div>
+          <div class="control" id="level-wrap" hidden>
+            <label for="p-level">Warning level</label>
+            <select id="p-level">
+              <option value="">Select a level</option>
+              <option>First</option>
+              <option>Second</option>
+              <option>Final</option>
+            </select>
+          </div>
+          <button class="ghost" id="p-clear" type="button">Clear</button>
+        </div>
+
+        <p class="prompt" id="p-prompt">Choose a type and reason to see what this discussion will involve.</p>
+
+        <div class="readout" id="p-readout" hidden>
+          <dl class="facts" id="p-facts"></dl>
+          <p class="sections-head">Sections you'll fill in</p>
+          <ul class="section-list" id="p-sections"></ul>
+          <div id="p-notes"></div>
+        </div>
+      </div>
+
+      <p>Type, reason, and level are locked once the record exists. Before you click <strong>Begin New Discussion</strong>, use <strong>Reset Type, Reason, and/or Level</strong> to change them. Afterwards, cancel the discussion and start a new one.</p>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="before">
+      <h2>Before you start</h2>
+      <p class="standfirst">Four things worth holding in mind, whatever the discussion is about.</p>
+
+      <p>Continuous feedback lets team members assess their own development and see where they can improve and advance — and because we win together, their progress is inseparable from ours.</p>
+
+      <div class="tenet">
+        <strong>Assume they can improve</strong>
+        <p>A performance discussion is not meant to leave someone feeling scared, inadequate, or devalued. Go in assuming improvement is possible — the goal is to help them get there.</p>
+      </div>
+      <div class="tenet">
+        <strong>Let them speak first</strong>
+        <p>Give the team member room to reflect on their own performance before you deliver yours. How they describe the situation tells you a great deal about their self-awareness and what they understand the job to require.</p>
+      </div>
+      <div class="tenet">
+        <strong>Bring specifics, not impressions</strong>
+        <p>Dates, times, what was observed, who else was involved or affected. Specifics keep the conversation on deliverables and results. Generalizations invite argument about whether the thing even happened.</p>
+      </div>
+      <div class="tenet">
+        <strong>Say what support looks like</strong>
+        <p>Name the coaching, tools, or resources you'll provide. A discussion that only describes a gap is a verdict; one that describes a path is an opportunity.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="where">
+      <h2>Where things live</h2>
+      <p class="standfirst">The Performance Dashboard has two tabs you'll use.</p>
+
+      <h3>Data Dashboard</h3>
+      <p>Current attendance point balances and discussion history for your team, in two tables. The filters across the top narrow both at once — by employee, manager, department, work location, discussion type, warning level, status, or date range.</p>
+      <p>Use this to see the shape of things before you act: whether a pattern exists, whether someone already has an active warning, how recent the last discussion was.</p>
+
+      <h3>Performance Discussion Actions</h3>
+      <p>Where you create and manage discussions. The left sidebar has two views: <strong>By Team Member</strong>, which is where everything happens, and <strong>By Department</strong>, a read-only list across a whole department.</p>
+      <p>By Team Member opens by default. Select a team member, confirm their details, then open a new discussion or revisit one already underway.</p>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="access">
+      <h2>Who can do what</h2>
+      <p class="standfirst">Access follows the reporting line. What you can do with a discussion depends on where you found it.</p>
+
+      <h3>Your team</h3>
+      <p>Direct and indirect managers have access to every action on their own team members, up to four levels down the reporting line. You don't need to request anything — if someone reports to you, or reports to someone who reports to you, they'll be in your search results.</p>
+      <p>The one exception is approving a discussion. That belongs to People Operations, and the Approve button only appears for them.</p>
+
+      <h3>Expanded access</h3>
+      <p>Some team members need access beyond their own reports — supporting another manager's team, or covering a department they don't manage. That isn't granted by default.</p>
+      <p>To request it, email <a href="mailto:peopleops@capsule.com">peopleops@capsule.com</a> with who needs access, whose discussions they need to reach, and why. People Operations will set it up.</p>
+
+      <h3>By Team Member vs By Department</h3>
+      <p>The two views in the left sidebar show the same records but offer different actions.</p>
+
+      <ul class="pair">
+        <li>
+          <strong>By Team Member</strong>
+          <p>Everything: create a new discussion, edit one in progress, cancel it, send a document, and — for People Operations — approve.</p>
+          <p>This is the only place a discussion can be created or changed.</p>
+        </li>
+        <li>
+          <strong>By Department</strong>
+          <p>Read-only. You can see every discussion in a department and open any record, but there's no create, no edit, and no cancel.</p>
+          <p>Use it to spot patterns or check what's outstanding. To act on anything you find, go back to By Team Member and select that person.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="create">
+      <h2>Create a discussion</h2>
+      <p class="standfirst">Start to finish, in By Team Member. Each section of the form saves on its own.</p>
+
+      <ol class="steps">
+        <li>
+          <strong>Select the team member</strong>
+          <p>Use the search field at the top of By Team Member to find the person this discussion concerns. You won't appear in your own results.</p>
+        </li>
+        <li>
+          <strong>Confirm their information</strong>
+          <p>Title, department, manager, work location, start date, and discussion counts appear in the right-hand panel. Give it a quick check — if anything's wrong, fix it on their profile first.</p>
+          <p>The panel takes a moment to populate, and the action buttons stay disabled until it does.</p>
+        </li>
+        <li>
+          <strong>Click Create New Discussion</strong>
+          <p>Pick a type and reason, then confirm the attestation to open the record. Those choices lock once the record exists — the planner above shows what each combination will ask for.</p>
+        </li>
+        <li>
+          <strong>Fill in each section and save it</strong>
+          <p>Only the sections relevant to your type and reason appear. Click Validate &amp; Save on each; when it succeeds the button is replaced by Edit and the fields lock. That's your confirmation it's saved.</p>
+        </li>
+        <li>
+          <strong>Complete the attestation and submit</strong>
+          <p>Every section must be saved before you can submit. Save records the attestation without starting approval; Submit sends it to the People team.</p>
+          <p>The attestation is a commitment, not a formality. By checking it you confirm the details are accurate and that you have shared them with the team member — or, for a termination notice, that you will once it's finalized. Whoever submits carries that responsibility.</p>
+          <p>After a successful submit, a confirmation appears and the section clears itself. The discussion you just submitted is in Review Existing Discussions.</p>
+        </li>
+      </ol>
+
+      <h3>Length limits</h3>
+      <div class="sheet">
+        <table>
+          <thead><tr><th>Field</th><th>Minimum</th><th>Paragraphs</th><th>Per paragraph</th></tr></thead>
+          <tbody>
+            <tr><td>Feedback Details</td><td>100 characters</td><td>up to 9</td><td>under 1,000 characters</td></tr>
+            <tr><td>Incident Details</td><td>100 characters</td><td>up to 9</td><td>under 2,000 characters</td></tr>
+            <tr><td>Additional Context</td><td>100 characters</td><td>up to 6</td><td>under 1,000 characters</td></tr>
+            <tr><td>Action Plan</td><td>100 characters</td><td>up to 6</td><td>under 1,000 characters</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Proof of Communication</h3>
+      <p>This section records a conversation that already happened — the one you had with the team member before opening the record. It isn't the discussion document, and it isn't a notification.</p>
+      <p>Set the date you spoke, how you spoke, and attach whatever evidence exists. A recording is required for <strong>Phone Call</strong> and <strong>Voice Mail</strong>, since those are the only two methods with no written trail. If a colleague was present, name them as a witness.</p>
+
+      <h3>Two things that will trip you up</h3>
+      <p><strong>Pasting long text can fail validation.</strong> If a section won't save after a paste, retype a few words anywhere in the text and try again. That's usually enough.</p>
+      <p><strong>Editing a saved section unlocks it again.</strong> Click Edit, make your change, and save that section a second time. Nothing is lost — it just needs re-confirming.</p>
+
+      <h3>Working checklist</h3>
+      <p>For the conversation itself, not the form. This resets when you leave the page.</p>
+      <ul class="checklist" id="checklist">
+        <li><label><input type="checkbox"><span>I've gathered dates, times, and specifics rather than impressions</span></label></li>
+        <li><label><input type="checkbox"><span>I've checked their attendance balance and discussion history on the Data Dashboard</span></label></li>
+        <li><label><input type="checkbox"><span>I've decided what support or coaching I'm offering</span></label></li>
+        <li><label><input type="checkbox"><span>I've given the team member room to describe the situation first</span></label></li>
+        <li><label><input type="checkbox"><span>I've had the conversation before creating the document</span></label></li>
+        <li><label><input type="checkbox"><span>I've read the attestation before checking it</span></label></li>
+      </ul>
+      <p class="tally"><span id="tally-text">0 of 6</span><button class="ghost" id="tally-clear" type="button">Clear all</button></p>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="review">
+      <h2>Review existing discussions</h2>
+      <p class="standfirst">Two ways to find a record: one team member at a time, or a whole department at once.</p>
+
+      <h3>By Team Member</h3>
+      <p>Select someone, then open Review Existing Discussions. Their history is grouped into four tabs by where each discussion has got to.</p>
+
+      <div class="sheet">
+        <table>
+          <thead><tr><th>Status</th><th>What it means</th><th>What you can do</th></tr></thead>
+          <tbody>
+            <tr><td>In Progress</td><td>Created but not finalized</td><td>Keep editing or cancel it — and approve, if you're in People Operations</td></tr>
+            <tr><td>Active</td><td>Finalized, with a warning or memo still in effect</td><td>Create and send the discussion document</td></tr>
+            <tr><td>Archived</td><td>Finalized, monitoring period passed</td><td>View, and send a document for terminations or positive feedback</td></tr>
+            <tr><td>Canceled</td><td>Withdrawn before completion</td><td>View, and edit if it needs reopening</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>The list reflects what was there when the page loaded. If you've saved something in another tab, use <strong>Click to reload recent changes</strong> above the tabs.</p>
+      <p>For everything except termination notices, the document sends automatically once the discussion is approved.</p>
+
+      <h3>By Department</h3>
+      <p>A read-only view of every discussion in a department, rather than one team member at a time. Useful for spotting patterns, or checking what's outstanding before a cycle closes.</p>
+
+      <ol class="steps">
+        <li>
+          <strong>Click Load departments</strong>
+          <p>The dropdown stays disabled until you do. The list takes a few seconds to build and only needs loading once per visit.</p>
+        </li>
+        <li>
+          <strong>Pick a department and a timeframe</strong>
+          <p>One department at a time. The timeframe limits how far back the search goes — it opens on the last week, and a shorter window returns faster.</p>
+        </li>
+        <li>
+          <strong>Narrow by status, if you want to</strong>
+          <p>Leave Status empty to include everything. Draft covers records where no status has been set yet.</p>
+        </li>
+        <li>
+          <strong>Click Load discussions</strong>
+          <p>Results are listed newest first, each with the team member's name. View opens the record in a new tab.</p>
+        </li>
+      </ol>
+
+      <div class="caution">
+        <p>This view is read-only. To create, edit, or cancel a discussion, find the person under By Team Member.</p>
+      </div>
+
+      <p>If the message says more records exist, narrow the timeframe. A department with a long history can hold more than one load can return.</p>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="termination">
+      <h2>Termination notices</h2>
+      <p class="standfirst">The one type where the document waits for you.</p>
+      <p>Every other discussion type sends its document automatically on approval. Termination notices don't — because the team member needs to hear this from you, not from an automated email.</p>
+
+      <ol class="steps">
+        <li><strong>You prepare and submit</strong><p>Same as any other type.</p></li>
+        <li><strong>The People team reviews and approves</strong><p>You'll be notified when that happens.</p></li>
+        <li><strong>You have the conversation</strong><p>In person, directly. This step is yours and the system can't do it for you.</p></li>
+        <li><strong>Then you create the document</strong><p>Under Review Existing Discussions, on the Active tab: Send Document, then Confirm.</p></li>
+      </ol>
+
+      <div class="caution">
+        <p>Approval means the People team has signed off. It does not mean the team member has been told. Creating the document before that conversation notifies them before you've had the chance to.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="faq">
+      <h2>FAQ</h2>
+      <p class="standfirst">The handful of things that come up most.</p>
+
+      <div class="qa">
+        <button type="button" aria-expanded="false"><span class="sign">+</span>The app is down. How do I submit a discussion?</button>
+        <div class="answer" hidden>
+          <ol>
+            <li>Email <a href="mailto:peopleops@capsule.com">peopleops@capsule.com</a> with everything you would normally enter in the app — the type, the reason, the warning level if it's a warning, the dates, and the details. What each type needs is in the planner above.</li>
+            <li>Write the formal notice yourself. Normally Rippling generates it from what you enter; with the app down, that has to be a document you produce.</li>
+            <li>Send both to People Operations, ask for approval if the discussion needs it, and copy us on whatever you send the team member.</li>
+          </ol>
+          <p>Rippling usually records that the document was delivered, so the CC is how we keep that trail.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <button type="button" aria-expanded="false"><span class="sign">+</span>The team member panel is empty or still loading</button>
+        <div class="answer" hidden>
+          <p>Give it a few seconds — it pulls from several places. If it's still blank after that, click Start Over and select the person again.</p>
+          <p>The action buttons stay disabled until the panel has filled in. That's deliberate: it stops you acting on information that isn't there yet.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <button type="button" aria-expanded="false"><span class="sign">+</span>Validation is taking a long time</button>
+        <div class="answer" hidden>
+          <p>If a save runs past about fifteen seconds, try it again. A long session can slow the page down; reloading the tab usually clears it.</p>
+          <p>If it keeps happening, send the details to <a href="mailto:peopleops@capsule.com">peopleops@capsule.com</a>.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <button type="button" aria-expanded="false"><span class="sign">+</span>A section won't validate and I can't see why</button>
+        <div class="answer" hidden>
+          <p>The message under the section names the specific problem. The usual causes are text under 100 characters, more paragraphs than the section allows, or a single paragraph over the character limit — the length limits are listed under Create a discussion.</p>
+          <p>If you pasted the text in, retype a few words and try again.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <button type="button" aria-expanded="false"><span class="sign">+</span>I picked the wrong type or reason</button>
+        <div class="answer" hidden>
+          <p>Before you click Begin New Discussion, use Reset Type, Reason, and/or Level.</p>
+          <p>Afterwards those choices are written to the record and locked — cancel the discussion and start a new one instead.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <button type="button" aria-expanded="false"><span class="sign">+</span>I need to record a discussion about myself</button>
+        <div class="answer" hidden>
+          <p>You can't. You won't appear in the team member search, and selecting yourself another way is blocked.</p>
+          <p>If a discussion genuinely needs recording about you, contact <a href="mailto:peopleops@capsule.com">peopleops@capsule.com</a>.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <button type="button" aria-expanded="false"><span class="sign">+</span>I want to edit one discussion while drafting another</button>
+        <div class="answer" hidden>
+          <p>You can. Each section has its own switch, so turning both on puts Create New Discussion and Review Existing Discussions in view at once.</p>
+          <p>They keep separate state — work in one won't disturb the other.</p>
+        </div>
+      </div>
+
+      <p class="footnote">Questions about a specific situation, or anything this guide doesn't cover — <a href="mailto:peopleops@capsule.com">peopleops@capsule.com</a>.</p>
+    </section>
+
+  </main>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---- planner ------------------------------------------------------- */
+
+  var REASONS = {
+    "Memo of Conversation": ["Attendance", "Performance", "Behavior", "Misconduct / Violation of Company Policy", "Positive Feedback"],
+    "Warning":              ["Attendance", "Performance", "Behavior", "Misconduct / Violation of Company Policy"],
+    "Termination Notice":   ["Attendance", "Performance", "Behavior", "Misconduct / Violation of Company Policy", "Job Abandonment"]
+  };
+
+  var WARNING_TYPE = { First: "Verbal", Second: "Written", Final: "Final Written" };
+
+  var elType    = document.getElementById("p-type");
+  var elReason  = document.getElementById("p-reason");
+  var elLevel   = document.getElementById("p-level");
+  var elLevelBx = document.getElementById("level-wrap");
+  var elPrompt  = document.getElementById("p-prompt");
+  var elReadout = document.getElementById("p-readout");
+  var elFacts   = document.getElementById("p-facts");
+  var elSecs    = document.getElementById("p-sections");
+  var elNotes   = document.getElementById("p-notes");
+
+  function fillReasons(type) {
+    var list = REASONS[type] || [];
+    elReason.innerHTML = "";
+    var first = document.createElement("option");
+    first.value = "";
+    first.textContent = type ? "Select a reason" : "Select a type first";
+    elReason.appendChild(first);
+    list.forEach(function (r) {
+      var o = document.createElement("option");
+      o.textContent = r;
+      elReason.appendChild(o);
+    });
+    elReason.disabled = !type;
+  }
+
+  function fact(label, value) {
+    var wrap = document.createElement("div");
+    wrap.className = "fact";
+    var dt = document.createElement("dt");
+    dt.textContent = label;
+    var dd = document.createElement("dd");
+    dd.textContent = value;
+    wrap.appendChild(dt);
+    wrap.appendChild(dd);
+    return wrap;
+  }
+
+  function sectionRow(name, on, gloss) {
+    var li = document.createElement("li");
+    li.className = on ? "on" : "off";
+    var mark = document.createElement("span");
+    mark.className = "mark";
+    mark.textContent = on ? "\u25CF" : "\u25CB";
+    mark.setAttribute("aria-hidden", "true");
+    var nm = document.createElement("span");
+    nm.className = "name";
+    nm.textContent = name;
+    var gl = document.createElement("span");
+    gl.className = "gloss";
+    gl.textContent = gloss;
+    li.appendChild(mark);
+    li.appendChild(nm);
+    li.appendChild(gl);
+    li.setAttribute("aria-label", name + (on ? ": included — " : ": not used — ") + gloss);
+    return li;
+  }
+
+  function caution(text) {
+    var d = document.createElement("div");
+    d.className = "caution";
+    var p = document.createElement("p");
+    p.textContent = text;
+    d.appendChild(p);
+    return d;
+  }
+
+  function render() {
+    var type   = elType.value;
+    var reason = elReason.value;
+    var level  = elLevel.value;
+
+    var isWarning     = type === "Warning";
+    var isTermination = type === "Termination Notice";
+    var isPositive    = reason === "Positive Feedback";
+    var isAbandonment = reason === "Job Abandonment";
+    var isAttendance  = reason === "Attendance";
+
+    elLevelBx.hidden = !isWarning;
+    if (!isWarning) { elLevel.value = ""; level = ""; }
+
+    if (!type || !reason) {
+      elPrompt.hidden = false;
+      elPrompt.textContent = "Choose a type and reason to see what this discussion will involve.";
+      elReadout.hidden = true;
+      return;
+    }
+    if (isWarning && !level) {
+      elPrompt.hidden = false;
+      elPrompt.textContent = "Choose a warning level to see the monitoring period.";
+      elReadout.hidden = true;
+      return;
+    }
+
+    elPrompt.hidden = true;
+    elReadout.hidden = false;
+
+    elFacts.innerHTML = "";
+    if (isWarning) {
+      elFacts.appendChild(fact("Warning type", WARNING_TYPE[level] || "\u2014"));
+      elFacts.appendChild(fact(
+        "Monitoring period",
+        isAttendance
+          ? "90 or 180 days, by their attendance policy"
+          : (level === "Final" ? "180 days" : "90 days")
+      ));
+    }
+    elFacts.appendChild(fact(
+      "Document sends",
+      isTermination ? "After you confirm" : "Automatically on approval"
+    ));
+
+    elSecs.innerHTML = "";
+    elSecs.appendChild(sectionRow("Feedback Details", isPositive,
+      isPositive ? "Date of feedback, and what was said" : "Only for Positive Feedback"));
+    elSecs.appendChild(sectionRow("Incident Details", !isPositive,
+      isPositive ? "Not used for Positive Feedback"
+                 : (isAbandonment ? "Three no-call-no-show dates, then the details"
+                                  : "Date of incident, and what happened")));
+    elSecs.appendChild(sectionRow("Prior Matters", !isPositive,
+      isPositive ? "Not used for Positive Feedback" : "Optional \u2014 link any active discussions"));
+    elSecs.appendChild(sectionRow("Additional Information", isTermination,
+      isTermination ? "Optional context before the standard summary" : "Only for Termination Notices"));
+    elSecs.appendChild(sectionRow("Action Plan", !isPositive && !isTermination,
+      (!isPositive && !isTermination) ? "Optional \u2014 what improvement looks like" : "Not used for this type"));
+    elSecs.appendChild(sectionRow("Proof of Communication", true,
+      "Date, method, and any recording or email"));
+
+    elNotes.innerHTML = "";
+    if (isTermination) {
+      elNotes.appendChild(caution("The document waits until you confirm you've spoken with the team member. See Termination notices."));
+    }
+    if (isAbandonment) {
+      elNotes.appendChild(caution("You'll need three no-call-no-show dates in order, each on or before the discussion date. The third becomes the date of incident."));
+    }
+  }
+
+  elType.addEventListener("change", function () {
+    fillReasons(elType.value);
+    elReason.value = "";
+    elLevel.value = "";
+    render();
+  });
+  elReason.addEventListener("change", render);
+  elLevel.addEventListener("change", render);
+  document.getElementById("p-clear").addEventListener("click", function () {
+    elType.value = "";
+    fillReasons("");
+    elLevel.value = "";
+    render();
+    elType.focus();
+  });
+
+  fillReasons("");
+  render();
+
+  /* ---- checklist ----------------------------------------------------- */
+
+  var boxes = Array.prototype.slice.call(document.querySelectorAll("#checklist input"));
+  var tally = document.getElementById("tally-text");
+
+  function countUp() {
+    var done = boxes.filter(function (b) { return b.checked; }).length;
+    tally.textContent = done + " of " + boxes.length;
+  }
+
+  boxes.forEach(function (b) { b.addEventListener("change", countUp); });
+  document.getElementById("tally-clear").addEventListener("click", function () {
+    boxes.forEach(function (b) { b.checked = false; });
+    countUp();
+  });
+  countUp();
+
+  /* ---- accordion ----------------------------------------------------- */
+
+  Array.prototype.forEach.call(document.querySelectorAll(".qa button"), function (btn) {
+    btn.addEventListener("click", function () {
+      var panel = btn.nextElementSibling;
+      var open = btn.getAttribute("aria-expanded") === "true";
+
+      // One at a time, so the list stays short.
+      Array.prototype.forEach.call(document.querySelectorAll(".qa button"), function (other) {
+        other.setAttribute("aria-expanded", "false");
+        other.querySelector(".sign").textContent = "+";
+        other.nextElementSibling.hidden = true;
+      });
+
+      if (!open) {
+        btn.setAttribute("aria-expanded", "true");
+        btn.querySelector(".sign").textContent = "\u2013";
+        panel.hidden = false;
+      }
+    });
+  });
+
+  /* ---- contents rail ------------------------------------------------- */
+
+  var links = Array.prototype.slice.call(document.querySelectorAll(".rail a"));
+  var sections = links
+    .map(function (a) { return document.querySelector(a.getAttribute("href")); })
+    .filter(Boolean);
+
+  function markCurrent() {
+    // The current section is the last one whose top has passed the mark.
+    var mark = window.scrollY + window.innerHeight * 0.25;
+    var index = 0;
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].offsetTop <= mark) { index = i; }
+    }
+    links.forEach(function (a, i) { a.classList.toggle("here", i === index); });
+  }
+
+  var waiting = false;
+  window.addEventListener("scroll", function () {
+    if (waiting) return;
+    waiting = true;
+    window.requestAnimationFrame(function () {
+      markCurrent();
+      waiting = false;
+    });
+  }, { passive: true });
+
+  window.addEventListener("resize", markCurrent, { passive: true });
+  markCurrent();
+})();
+</script>
+
+</body>
+</html>
