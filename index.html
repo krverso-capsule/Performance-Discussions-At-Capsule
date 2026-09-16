@@ -444,9 +444,9 @@
 
   <header class="masthead">
     <div class="masthead-text">
-      <h1>Running and recording a performance discussion</h1>
-      <p>Discussions about attendance, performance, and behavior are how team members learn where they stand. Done well, they open a path forward. Done carelessly, they close one.</p>
-      <p class="origin">This mirrors the Overview &amp; Guidelines page in Rippling, which is the copy managers see. Kept here so the content can be reviewed outside the function editor — change both together.</p>
+      <h1>Overview & Guidelines</h1>
+      <p>How to run a performance discussion at Capsule and how to record it in the Performance Dashboard in Rippling.</p>
+      <p class="origin">This mirrors the Overview &amp; Guidelines page in Rippling. </p>
     </div>
 
     <div class="jump">
@@ -473,58 +473,11 @@
   <main>
 
     <!-- ============================================================ -->
-    <section id="plan">
-      <h2>Plan a discussion</h2>
-      <p class="standfirst">What you pick at the start decides which sections you fill in, how long the discussion stays in effect, and when the document reaches the team member.</p>
-
-      <div class="planner">
-        <div class="controls">
-          <div class="control">
-            <label for="p-type">Discussion type</label>
-            <select id="p-type">
-              <option value="">Select a type</option>
-              <option>Memo of Conversation</option>
-              <option>Warning</option>
-              <option>Termination Notice</option>
-            </select>
-          </div>
-          <div class="control">
-            <label for="p-reason">Reason</label>
-            <select id="p-reason" disabled>
-              <option value="">Select a type first</option>
-            </select>
-          </div>
-          <div class="control" id="level-wrap" hidden>
-            <label for="p-level">Warning level</label>
-            <select id="p-level">
-              <option value="">Select a level</option>
-              <option>First</option>
-              <option>Second</option>
-              <option>Final</option>
-            </select>
-          </div>
-          <button class="ghost" id="p-clear" type="button">Clear</button>
-        </div>
-
-        <p class="prompt" id="p-prompt">Choose a type and reason to see what this discussion will involve.</p>
-
-        <div class="readout" id="p-readout" hidden>
-          <dl class="facts" id="p-facts"></dl>
-          <p class="sections-head">Sections you'll fill in</p>
-          <ul class="section-list" id="p-sections"></ul>
-          <div id="p-notes"></div>
-        </div>
-      </div>
-
-      <p>Type, reason, and level are locked once the record exists. Before you click <strong>Begin New Discussion</strong>, use <strong>Reset Type, Reason, and/or Level</strong> to change them. Afterwards, cancel the discussion and start a new one.</p>
-    </section>
-
-    <!-- ============================================================ -->
     <section id="before">
       <h2>Before you start</h2>
       <p class="standfirst">Four things worth holding in mind, whatever the discussion is about.</p>
 
-      <p>Continuous feedback lets team members assess their own development and see where they can improve and advance — and because we win together, their progress is inseparable from ours.</p>
+      <p>Discussions about attendance, performance, and behavior are how team members learn where they stand. Done well, they open a path forward. Done carelessly, they close one. Continuous feedback enables team members to assess their development and gain insight into areas of improvement and advancement — and because we win together, their progress is inseparable from ours.</p>
 
       <div class="tenet">
         <strong>Assume they can improve</strong>
@@ -586,6 +539,53 @@
           <p>Use it to spot patterns or check what's outstanding. To act on anything you find, go back to By Team Member and select that person.</p>
         </li>
       </ul>
+    </section>
+    
+    <!-- ============================================================ -->
+    <section id="plan">
+      <h2>Plan a discussion</h2>
+      <p class="standfirst">What you pick at the start decides which sections you fill in, how long the discussion stays in effect, and when the document reaches the team member.</p>
+
+      <div class="planner">
+        <div class="controls">
+          <div class="control">
+            <label for="p-type">Discussion type</label>
+            <select id="p-type">
+              <option value="">Select a type</option>
+              <option>Memo of Conversation</option>
+              <option>Warning</option>
+              <option>Termination Notice</option>
+            </select>
+          </div>
+          <div class="control">
+            <label for="p-reason">Reason</label>
+            <select id="p-reason" disabled>
+              <option value="">Select a type first</option>
+            </select>
+          </div>
+          <div class="control" id="level-wrap" hidden>
+            <label for="p-level">Warning level</label>
+            <select id="p-level">
+              <option value="">Select a level</option>
+              <option>First</option>
+              <option>Second</option>
+              <option>Final</option>
+            </select>
+          </div>
+          <button class="ghost" id="p-clear" type="button">Clear</button>
+        </div>
+
+        <p class="prompt" id="p-prompt">Choose a type and reason to see what this discussion will involve.</p>
+
+        <div class="readout" id="p-readout" hidden>
+          <dl class="facts" id="p-facts"></dl>
+          <p class="sections-head">Sections you'll fill in</p>
+          <ul class="section-list" id="p-sections"></ul>
+          <div id="p-notes"></div>
+        </div>
+      </div>
+
+      <p>Type, reason, and level are locked once the record exists. Before you click <strong>Begin New Discussion</strong>, use <strong>Reset Type, Reason, and/or Level</strong> to change them. Afterwards, cancel the discussion and start a new one.</p>
     </section>
 
     <!-- ============================================================ -->
