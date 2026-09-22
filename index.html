@@ -18,8 +18,7 @@
   --return:#9C6416; --return-wash:#F7EEDF;
   --stop:#93282B; --stop-wash:#F7E7E7;
   --accent:#6C3A8C; --accent-wash:#F1EAF6;
-  --focus:#2F6BD8;
-  --mark:#FDECA8;
+  --focus:#2F6BD8; --mark:#FDECA8;
   --sans:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   --serif:"Newsreader",ui-serif,Georgia,"Times New Roman",serif;
   --sidebar:300px;
@@ -34,8 +33,7 @@
     --return:#E2AF63; --return-wash:#332714;
     --stop:#E98B8B; --stop-wash:#331B1C;
     --accent:#C5A2DE; --accent-wash:#241A2E;
-    --focus:#7FA9F5;
-    --mark:#5A4A12;
+    --focus:#7FA9F5; --mark:#5A4A12;
   }
 }
 :root[data-theme="dark"]{
@@ -46,68 +44,37 @@
   --return:#E2AF63; --return-wash:#332714;
   --stop:#E98B8B; --stop-wash:#331B1C;
   --accent:#C5A2DE; --accent-wash:#241A2E;
-  --focus:#7FA9F5;
-  --mark:#5A4A12;
+  --focus:#7FA9F5; --mark:#5A4A12;
 }
 *,*::before,*::after{box-sizing:inherit}
 html{scroll-behavior:smooth;scroll-padding-top:24px;-webkit-text-size-adjust:100%}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-body{
-  margin:0;background:var(--paper);color:var(--ink);
-  font-family:var(--sans);font-size:16px;line-height:1.6;
-  -webkit-font-smoothing:antialiased;
-}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
 :focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:3px}
 a{color:inherit}
 .skip{position:absolute;left:-9999px}
 .skip:focus{left:12px;top:12px;z-index:100;background:var(--surface);padding:10px 14px;border:1px solid var(--rule-firm);border-radius:6px}
 
-/* ---------------- layout ---------------- */
 .shell{display:grid;grid-template-columns:1fr;min-height:100vh}
-@media (min-width:1000px){
-  .shell{grid-template-columns:var(--sidebar) minmax(0,1fr)}
-}
+@media (min-width:1000px){.shell{grid-template-columns:var(--sidebar) minmax(0,1fr)}}
 
-/* ---------------- sidebar ---------------- */
-#sidebar{
-  border-right:1px solid var(--rule);
-  background:var(--surface);
-  display:flex;flex-direction:column;
-}
-@media (min-width:1000px){
-  #sidebar{position:sticky;top:0;height:100vh}
-}
+#sidebar{border-right:1px solid var(--rule);background:var(--surface);display:flex;flex-direction:column}
+@media (min-width:1000px){#sidebar{position:sticky;top:0;height:100vh}}
 .side-head{padding:22px 20px 14px;border-bottom:1px solid var(--rule)}
 .side-head .eyebrow{font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-faint);font-weight:600;margin:0 0 6px}
 .side-head h1{font-family:var(--serif);font-weight:400;font-size:1.5rem;line-height:1.1;margin:0 0 4px;letter-spacing:-.01em}
 .side-head p{margin:0;font-size:.82rem;color:var(--ink-soft)}
-
 .searchwrap{padding:14px 20px;border-bottom:1px solid var(--rule);position:relative}
-#q{
-  width:100%;font:inherit;font-size:.9rem;padding:9px 34px 9px 12px;
-  border:1px solid var(--rule-firm);border-radius:8px;
-  background:var(--paper);color:var(--ink);
-}
+#q{width:100%;font:inherit;font-size:.9rem;padding:9px 34px 9px 12px;border:1px solid var(--rule-firm);border-radius:8px;background:var(--paper);color:var(--ink)}
 #q::placeholder{color:var(--ink-faint)}
-.clearq{
-  position:absolute;right:28px;top:50%;transform:translateY(-50%);
-  border:0;background:transparent;color:var(--ink-faint);cursor:pointer;
-  font:inherit;font-size:1.1rem;line-height:1;padding:4px;display:none;
-}
+.clearq{position:absolute;right:28px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:var(--ink-faint);cursor:pointer;font:inherit;font-size:1.1rem;line-height:1;padding:4px;display:none}
 .clearq.on{display:block}
 .hits{padding:8px 20px 0;font-size:.76rem;color:var(--ink-faint)}
-
 nav#toc{overflow-y:auto;padding:14px 12px 40px;flex:1}
 nav#toc ul{list-style:none;margin:0;padding:0}
 nav#toc .ch{margin-bottom:4px}
-nav#toc .ch > a{
-  display:block;padding:7px 10px;border-radius:7px;text-decoration:none;
-  font-size:.88rem;font-weight:600;color:var(--ink);
-}
-nav#toc .sub a{
-  display:block;padding:5px 10px 5px 22px;border-radius:7px;text-decoration:none;
-  font-size:.83rem;color:var(--ink-soft);border-left:2px solid transparent;
-}
+nav#toc .ch > a{display:block;padding:7px 10px;border-radius:7px;text-decoration:none;font-size:.88rem;font-weight:600;color:var(--ink)}
+nav#toc .sub a{display:block;padding:5px 10px 5px 22px;border-radius:7px;text-decoration:none;font-size:.83rem;color:var(--ink-soft);border-left:2px solid transparent}
 nav#toc .sub .deep a{padding-left:34px;font-size:.8rem}
 nav#toc a:hover{background:var(--wash)}
 nav#toc a.here{background:var(--wash);color:var(--ink);border-left-color:var(--accent)}
@@ -120,19 +87,13 @@ nav#toc .result .rs{font-size:.79rem;color:var(--ink-soft);display:block}
 nav#toc .none{padding:12px 10px;font-size:.85rem;color:var(--ink-faint)}
 mark{background:var(--mark);color:inherit;border-radius:2px;padding:0 1px}
 
-/* ---------------- main ---------------- */
 main{padding:40px 32px 120px;max-width:920px}
 @media (max-width:640px){main{padding:28px 18px 80px}}
-
 .masthead{border-bottom:2px solid var(--ink);padding-bottom:20px;margin-bottom:8px}
 .masthead h2{font-family:var(--serif);font-weight:400;font-size:clamp(2rem,1.3rem + 2.4vw,2.9rem);line-height:1.03;letter-spacing:-.015em;margin:0 0 10px}
 .masthead p{margin:0;max-width:62ch;color:var(--ink-soft)}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
-.btn{
-  font:inherit;font-size:.85rem;cursor:pointer;padding:8px 14px;border-radius:8px;
-  border:1px solid var(--rule-firm);background:var(--surface);color:var(--ink);
-  text-decoration:none;display:inline-block;
-}
+.btn{font:inherit;font-size:.85rem;cursor:pointer;padding:8px 14px;border-radius:8px;border:1px solid var(--rule-firm);background:var(--surface);color:var(--ink);text-decoration:none;display:inline-block}
 .btn:hover{background:var(--wash)}
 .btn.solid{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .btn.solid:hover{opacity:.88}
@@ -147,106 +108,59 @@ p{max-width:68ch;margin:0 0 14px}
 ul.plain{margin:0 0 16px;padding-left:20px;max-width:68ch}
 ul.plain li{margin-bottom:8px}
 ul.plain li::marker{color:var(--ink-faint)}
-ul.plain b{font-weight:600}
-
-/* anchors */
-.anchor{
-  opacity:0;margin-left:8px;font-size:.72em;color:var(--ink-faint);
-  text-decoration:none;border:0;background:none;cursor:pointer;font-family:var(--sans);
-}
+.anchor{opacity:0;margin-left:8px;font-size:.72em;color:var(--ink-faint);text-decoration:none;border:0;background:none;cursor:pointer;font-family:var(--sans)}
 h3:hover .anchor,h4:hover .anchor,h5:hover .anchor,.anchor:focus{opacity:1}
 
-/* blocks */
-.principle{
-  background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--accent);
-  border-radius:10px;padding:16px 18px;margin:0 0 12px;max-width:68ch;
-}
+.principle{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--accent);border-radius:10px;padding:16px 18px;margin:0 0 12px;max-width:68ch}
 .principle b{display:block;margin-bottom:4px}
 .principle p{margin:0}
-
-.callout{
-  border:1px solid var(--rule);border-left:3px solid var(--rule-firm);
-  background:var(--surface);border-radius:8px;padding:14px 16px;margin:0 0 16px;
-  font-size:.92rem;max-width:68ch;
-}
+.callout{border:1px solid var(--rule);border-left:3px solid var(--rule-firm);background:var(--surface);border-radius:8px;padding:14px 16px;margin:0 0 16px;font-size:.92rem;max-width:68ch}
 .callout.warn{border-left-color:var(--stop)}
 .callout.good{border-left-color:var(--ready)}
 .callout.info{border-left-color:var(--accent)}
 .callout b{display:block;margin-bottom:4px}
 .callout p{margin:0 0 8px;max-width:none}
 .callout p:last-child{margin:0}
-
 .note{background:var(--wash);border-radius:8px;padding:12px 15px;font-size:.88rem;color:var(--ink-soft);margin:0 0 16px;max-width:68ch}
-
-.stopbox{
-  border:2px solid var(--stop);background:var(--surface);border-radius:10px;
-  padding:20px;margin:0 0 20px;max-width:68ch;
-}
+.stopbox{border:2px solid var(--stop);background:var(--surface);border-radius:10px;padding:20px;margin:0 0 20px;max-width:68ch}
 .stopbox .word{font-family:var(--serif);font-size:1.5rem;color:var(--stop);margin:0 0 6px;line-height:1}
 .stopbox ul{margin:14px 0 0}
-
-.audience{
-  border:1px solid var(--rule-firm);border-left:3px solid var(--accent);
-  background:var(--surface);border-radius:10px;padding:20px;margin:24px 0;
-}
-.audience .tag{
-  display:inline-block;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;
-  font-weight:600;color:var(--accent);background:var(--accent-wash);
-  padding:3px 9px;border-radius:5px;margin-bottom:14px;
-}
+.audience{border:1px solid var(--rule-firm);border-left:3px solid var(--accent);background:var(--surface);border-radius:10px;padding:20px;margin:24px 0}
+.audience .tag{display:inline-block;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--accent);background:var(--accent-wash);padding:3px 9px;border-radius:5px;margin-bottom:14px}
 .audience h4:first-of-type{margin-top:0}
+.nextup{border:1px dashed var(--rule-firm);border-radius:8px;padding:13px 16px;margin:18px 0 0;max-width:68ch;font-size:.9rem}
+.nextup b{display:block;margin-bottom:3px;color:var(--accent)}
+.nextup p{margin:0;max-width:none;color:var(--ink-soft)}
 
-/* numbered steps */
 ol.steps{list-style:none;counter-reset:s;margin:0 0 18px;padding:0;max-width:68ch}
 ol.steps li{counter-increment:s;display:flex;gap:14px;margin-bottom:16px}
-ol.steps li::before{
-  content:counter(s);flex:0 0 26px;font-weight:600;color:var(--accent);
-  font-size:.95rem;line-height:1.6;
-}
+ol.steps li::before{content:counter(s);flex:0 0 26px;font-weight:600;color:var(--accent);font-size:.95rem;line-height:1.6}
 ol.steps.unnumbered li::before{content:"\203A";color:var(--ink-faint)}
 ol.steps b{display:block;margin-bottom:2px}
 ol.steps p{margin:0 0 6px;max-width:none}
 ol.steps p:last-child{margin:0}
 
-/* flow rows */
-.flow{display:flex;flex-direction:column;gap:10px;margin:0 0 20px}
-.flowrow{
-  display:flex;gap:18px;align-items:flex-start;
-  background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:16px 18px;
-}
-.flowrow .n{flex:0 0 28px;font-family:var(--serif);font-size:1.4rem;color:var(--accent);line-height:1.1}
-.flowrow .mid{flex:1 1 auto;min-width:0}
-.flowrow .mid b{display:block;margin-bottom:3px}
-.flowrow .mid p{margin:0;font-size:.93rem;color:var(--ink-soft)}
-.flowrow .rail{flex:0 0 210px}
-@media (max-width:760px){.flowrow{flex-wrap:wrap}.flowrow .rail{flex:1 1 100%;padding-left:46px}}
-.badge{
-  display:inline-block;background:var(--wash);color:var(--ink-soft);
-  font-size:.74rem;font-weight:600;padding:3px 9px;border-radius:5px;margin-bottom:5px;
-}
-.rail .when{display:block;font-size:.78rem;color:var(--ink-faint)}
-
-/* walk steps */
-details.step{
-  border:1px solid var(--rule);border-radius:10px;background:var(--surface);
-  margin:0 0 12px;overflow:hidden;
-}
-details.step > summary{
-  cursor:pointer;padding:18px 20px;list-style:none;display:block;
-}
+details.step{border:1px solid var(--rule);border-radius:10px;background:var(--surface);margin:0 0 12px;overflow:hidden}
+details.step > summary{cursor:pointer;padding:18px 20px;list-style:none;display:block}
 details.step > summary::-webkit-details-marker{display:none}
-details.step > summary::after{
-  content:"+";float:right;color:var(--ink-faint);font-size:1.2rem;line-height:1;margin-left:12px;
-}
+details.step > summary::after{content:"+";float:right;color:var(--ink-faint);font-size:1.2rem;line-height:1;margin-left:12px}
 details.step[open] > summary::after{content:"\2013"}
 details.step .stepno{font-size:.74rem;font-weight:600;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
 details.step summary h4{margin:2px 0 8px;font-size:1.25rem}
 details.step .badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.badge{display:inline-block;background:var(--wash);color:var(--ink-soft);font-size:.74rem;font-weight:600;padding:3px 9px;border-radius:5px}
 details.step .trigger{margin:0;font-size:.88rem;color:var(--ink-soft);max-width:66ch}
 details.step .inner{padding:0 20px 24px;border-top:1px solid var(--rule);margin-top:4px;padding-top:20px}
-details.step .inner > h4:first-child{margin-top:0}
+details.step .inner > h4:first-child,details.step .inner > h5:first-child{margin-top:0}
 
-/* faq */
+details.res{border:1px solid var(--rule);border-radius:10px;background:var(--surface);margin:0 0 10px;overflow:hidden}
+details.res > summary{cursor:pointer;padding:15px 18px;list-style:none;display:block;font-weight:600;font-size:1rem}
+details.res > summary::-webkit-details-marker{display:none}
+details.res > summary::after{content:"+";float:right;color:var(--ink-faint);font-size:1.15rem;line-height:1.2}
+details.res[open] > summary::after{content:"\2013"}
+details.res .inner{padding:0 18px 22px;border-top:1px solid var(--rule);padding-top:18px}
+details.res .inner > *:first-child{margin-top:0}
+
 details.faq{border-bottom:1px solid var(--rule);padding:4px 0}
 details.faq > summary{cursor:pointer;list-style:none;padding:14px 4px;font-weight:600;font-size:.98rem;display:block}
 details.faq > summary::-webkit-details-marker{display:none}
@@ -255,13 +169,11 @@ details.faq[open] > summary::after{content:"\2013"}
 details.faq .inner{padding:0 4px 18px}
 details.faq .inner p:last-child{margin-bottom:0}
 
-/* tables */
 .tablewrap{overflow-x:auto;margin:0 0 20px}
 table{border-collapse:collapse;font-size:.92rem;min-width:520px;width:100%}
 th,td{text-align:left;padding:10px 16px 10px 0;border-bottom:1px solid var(--rule);vertical-align:top}
 th{font-size:.76rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-faint);font-weight:600}
 
-/* weak / strong */
 .pair{margin:0 0 18px;max-width:68ch}
 .pair > div{border:1px solid var(--rule);border-radius:8px;padding:13px 15px;margin-bottom:8px;background:var(--surface)}
 .pair .tag{display:block;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;color:var(--ink-faint)}
@@ -270,8 +182,7 @@ th{font-size:.76rem;text-transform:uppercase;letter-spacing:.06em;color:var(--in
 .pair p{margin:0;font-size:.93rem}
 .pair .weak p{color:var(--ink-soft)}
 
-/* checklist */
-.checklist{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:18px 20px;margin:0 0 18px;max-width:68ch}
+.checklist{background:var(--wash);border-radius:10px;padding:18px 20px;margin:0 0 18px;max-width:68ch}
 .checklist .hint{font-size:.85rem;color:var(--ink-soft);margin:0 0 14px}
 .checklist label{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;cursor:pointer}
 .checklist input{margin:5px 0 0;flex:0 0 auto;width:16px;height:16px;accent-color:var(--accent)}
@@ -279,7 +190,6 @@ th{font-size:.76rem;text-transform:uppercase;letter-spacing:.06em;color:var(--in
 .checklist label span{font-size:.9rem;color:var(--ink-soft)}
 .checklist .foot{text-align:right}
 
-/* picker */
 .picker{border:1px solid var(--rule-firm);border-radius:12px;background:var(--surface);padding:22px;margin:0 0 22px}
 .controls{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:18px}
 .field{display:flex;flex-direction:column;gap:6px;flex:1 1 200px;min-width:180px}
@@ -300,14 +210,10 @@ th{font-size:.76rem;text-transform:uppercase;letter-spacing:.06em;color:var(--in
 .seclist .why{font-size:.85rem;color:var(--ink-soft)}
 .empty{color:var(--ink-faint);font-size:.92rem}
 
-/* five tests */
 .toggles{display:flex;flex-wrap:wrap;gap:22px;margin:0 0 20px}
 .tgroup label{display:block;font-size:.76rem;font-weight:600;color:var(--ink-faint);margin-bottom:6px}
 .tgroup .row{display:flex;gap:6px;flex-wrap:wrap}
-.pill{
-  font:inherit;font-size:.83rem;cursor:pointer;padding:6px 13px;border-radius:999px;
-  border:1px solid var(--rule-firm);background:var(--surface);color:var(--ink-soft);
-}
+.pill{font:inherit;font-size:.83rem;cursor:pointer;padding:6px 13px;border-radius:999px;border:1px solid var(--rule-firm);background:var(--surface);color:var(--ink-soft)}
 .pill:hover{border-color:var(--ink-faint)}
 .pill[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink);font-weight:500}
 .verdict{background:var(--wash);border-radius:10px;padding:18px 20px;margin:0 0 20px;max-width:68ch}
@@ -342,7 +248,6 @@ footer p{max-width:64ch}
   #sidebar,.actions,.anchor,.marks,.toggles,.checklist .foot{display:none!important}
   .shell{display:block}
   main{max-width:none;padding:0}
-  details{open:true}
   details > summary::after{content:""!important}
   .test.hidden{display:block}
   .fix{display:block}
@@ -356,7 +261,7 @@ footer p{max-width:64ch}
 
   <aside id="sidebar">
     <div class="side-head">
-      <p class="eyebrow">Capsule &middot; People Operations</p>
+      <p class="eyebrow">Capsule &middot; People Team</p>
       <h1>Performance Discussions</h1>
       <p>Overview &amp; Guidelines</p>
     </div>
@@ -374,7 +279,8 @@ footer p{max-width:64ch}
       <h2>Overview &amp; Guidelines</h2>
       <p>How to run a performance discussion at Capsule and how to record it in the Performance Dashboard.</p>
       <div class="actions">
-        <a class="btn solid" href="#walk">Walk the process</a>
+        <a class="btn solid" href="#walk">Step-by-step process</a>
+        <a class="btn" href="#resources">Additional resources</a>
         <a class="btn" href="#faq">FAQ</a>
         <button class="btn" id="expandAll" type="button">Expand everything</button>
         <button class="btn" id="printBtn" type="button">Print</button>
@@ -385,75 +291,39 @@ footer p{max-width:64ch}
     <section class="chapter" id="before">
       <h3 class="ch-title">Before you start</h3>
       <p class="lede">Four things worth holding in mind, whatever the discussion is about.</p>
-      <p>Discussions about attendance, performance, and behavior are how team members learn where they stand. Done well, they open a path forward. Done carelessly, they close one. Continuous feedback enables team members to assess their development and gain insight into areas of improvement and advancement — and because we win together, their progress is inseparable from ours.</p>
+      <p>Discussions about attendance, performance, and behavior are how team members learn where they stand. Continuous feedback enables team members to assess their development and gain insight into areas of improvement and advancement.</p>
 
       <div class="principle"><b>Assume they can improve</b><p>A performance discussion is not meant to leave someone feeling scared, inadequate, or devalued. Go in assuming improvement is possible — the goal is to help them get there.</p></div>
       <div class="principle"><b>Let them speak first</b><p>Give the team member room to reflect on their own performance before you deliver yours. How they describe the situation tells you a great deal about their self-awareness and what they understand the job to require.</p></div>
       <div class="principle"><b>Bring specifics, not impressions</b><p>Dates, times, what was observed, who else was involved or affected. Specifics keep the conversation on deliverables and results. Generalizations invite argument about whether the thing even happened.</p></div>
       <div class="principle"><b>Say what support looks like</b><p>Name the coaching, tools, or resources you’ll provide. A discussion that only describes a gap is a verdict; one that describes a path is an opportunity.</p></div>
-
-      <h4 id="how-it-works">How it works — high-level overview</h4>
-      <div class="flow">
-        <div class="flowrow">
-          <span class="n">1</span>
-          <div class="mid"><b>Something happened</b><p>You notice something worth acting on, good or bad, and decide whether it warrants a formal record.</p></div>
-          <div class="rail"><span class="badge">Who takes action: Manager</span><span class="when">When: ASAP</span></div>
-        </div>
-        <div class="flowrow">
-          <span class="n">2</span>
-          <div class="mid"><b>Create the record</b><p>Talk to the team member, then create the record, fill in each section, and submit.</p></div>
-          <div class="rail"><span class="badge">Who takes action: Manager</span><span class="when">When: Within 5 days</span></div>
-        </div>
-        <div class="flowrow">
-          <span class="n">3</span>
-          <div class="mid"><b>Review</b><p>What happens next depends on type and reason. Most records go to the People Team for review. Positive feedback doesn’t. Termination notices are approved before the final conversation, not after.</p></div>
-          <div class="rail"><span class="badge">Who takes action: People Team</span><span class="when">When: 1–2 business days</span></div>
-        </div>
-        <div class="flowrow">
-          <span class="n">4</span>
-          <div class="mid"><b>Finalizing the record</b><p>After the People Team approves the record, the record is final. The document goes out automatically for everything except a termination notice, which the manager sends after the final conversation.</p></div>
-          <div class="rail"><span class="badge">Who takes action: System or Manager</span><span class="when">When: On approval</span></div>
-        </div>
-        <div class="flowrow">
-          <span class="n">5</span>
-          <div class="mid"><b>What comes next</b><p>A monitoring period you track, an offboarding, or nothing further. Monitoring periods are auto-assigned based on warning levels, but offboardings should be initiated as soon as possible after approval.</p></div>
-          <div class="rail"><span class="badge">Who takes action: Manager</span><span class="when">When: 90 or 180 days, or ASAP</span></div>
-        </div>
-      </div>
-
-      <div class="callout info">
-        <b>Two exceptions</b>
-        <p>Positive feedback skips step 3 entirely. Nobody reviews it, and it becomes a record the moment you submit.</p>
-        <p>Termination notices include an intermediary step before a true, final discussion. Approval comes first, you have the final conversation after, and you send the document yourself.</p>
-      </div>
     </section>
 
     <!-- ============================================ WHERE / WHO -->
     <section class="chapter" id="where">
       <h3 class="ch-title">Where things live / Who can access</h3>
-      <p class="lede">Two views onto the same records, and access that comes from your reporting line plus a few named exceptions.</p>
 
-      <h4 id="two-views">The two views</h4>
-      <p>The left sidebar has two views: By Team Member, where discussions are created, and By Department, which shows a whole department at once with the same actions available.</p>
-      <p>By Team Member opens by default. Select a team member, confirm their details, then open a new discussion or revisit one already underway.</p>
+      <h4 id="where-things-live">Where things live</h4>
+      <p>The left sidebar has two views: By Team Member, where discussions are created, and By Department, which shows a whole department at once with the same actions available. By Team Member opens by default.</p>
+
+      <h5 id="two-views">By Team Member vs. By Department</h5>
+      <p>Both views offer the same actions on a discussion. They differ in how you find one.</p>
       <ol class="steps unnumbered">
         <li><div><b>By Team Member</b><p>Search for a person and see everything about them: their info panel, discussion counts, and full history across four tabs.</p><p>This is the only place a discussion can be created.</p></div></li>
         <li><div><b>By Department</b><p>Pick a department and a timeframe to see everyone’s discussions at once, in the same four tabs. Each row names the team member it belongs to.</p><p>Edit, cancel, send a document, and approve all work here exactly as they do in By Team Member.</p></div></li>
       </ol>
-      <p class="note">By Department only offers departments you have access to, and within one you only see the people you can reach. A department that appears because two of your reports sit in it shows you those two, not the whole roster.</p>
+      <p class="note">By Department only offers departments you have access to, and within one you only see team members within your scope.</p>
 
-      <h4 id="your-team">Your team</h4>
-      <p>If someone reports to you — directly, or through someone who reports to you — they are in your search results. You don’t request this, and there’s no depth limit. Your whole org is reachable.</p>
-      <p>That list is rebuilt several times a day rather than live, so a new hire or a fresh reporting change can take a few hours to appear.</p>
-      <p>The one action that isn’t yours is approving. That belongs to People Operations, and the Approve button only appears for them.</p>
+      <h4 id="who-can-access">Who can access</h4>
+      <p>By default you always have access to records pertaining to your direct and indirect reports. You can review, edit, or leave comments on these discussions. However, only the People Team has access to approve discussions.</p>
 
-      <h4 id="named-exceptions">Named exceptions</h4>
-      <p>A few roles need to reach beyond their own reports. That access is built in rather than requested:</p>
+      <h5 id="additional-access">Additional access</h5>
+      <p>A few roles have been granted additional access:</p>
       <div class="tablewrap">
         <table>
           <thead><tr><th>If you are</th><th>You can also reach</th></tr></thead>
           <tbody>
-            <tr><td><b>People Operations</b></td><td>Everyone</td></tr>
+            <tr><td><b>People Team</b></td><td>Everyone</td></tr>
             <tr><td><b>A manager in Logistics</b></td><td>Everyone in Logistics &gt; Courier, Dispatch</td></tr>
             <tr><td><b>Senior Logistics Associate</b></td><td>Everyone in Logistics &gt; Courier</td></tr>
             <tr><td><b>A manager in Pharmacy Experience</b></td><td>Everyone in Pharmacy Experience &gt; Inbound</td></tr>
@@ -462,18 +332,15 @@ footer p{max-width:64ch}
           </tbody>
         </table>
       </div>
-      <p>Your peers are the other people who report to your own manager. Their reports become reachable to you, which is what makes covering for each other possible.</p>
-
-      <h4 id="more-access">Anything else</h4>
-      <p>If you need access the rules above don’t give you — covering another department, supporting a manager on leave — email <a href="mailto:peopleops@capsule.com">peopleops@capsule.com</a> with who needs access, whose discussions they need to reach, and why.</p>
+      <p>Your peers are the other people who report to your own manager. Their direct reports are included in your scope to ensure you can support each other when needed.</p>
+      <p>If you need additional access — covering another department, supporting a manager on leave — email <a href="mailto:peopleops@capsule.com">peopleops@capsule.com</a> with who you need to see in the Performance Dashboard and why.</p>
     </section>
 
-    <!-- ============================================ WALK THE PROCESS -->
+    <!-- ============================================ STEP BY STEP -->
     <section class="chapter" id="walk">
-      <h3 class="ch-title">Walk the process</h3>
+      <h3 class="ch-title">Step-by-step process</h3>
       <p class="lede">Five steps, start to finish. Open any one of them — who holds the ball at each stage is on the row.</p>
 
-      <!-- step 1 -->
       <details class="step" id="step-1">
         <summary>
           <span class="stepno">Step 1</span>
@@ -482,20 +349,10 @@ footer p{max-width:64ch}
           <p class="trigger">You saw, heard about, or were told about something a member of your team did.</p>
         </summary>
         <div class="inner">
+          <h5 id="potential-reasons">Potential reasons for a performance discussion record</h5>
           <p>Before you continue, assess if there is anything to act on, and if a performance discussion is the right course of action.</p>
-
-          <h4 id="three-tests">Three tests</h4>
-          <div class="checklist">
-            <p class="hint">Tick these off as you think it through. These are the same tests the People Team applies when they review what you submit.</p>
-            <label><input type="checkbox" class="tt"><span><b>Specific</b>You can name the day and say what happened. If the best you can do is “he’s been off lately” or “she’s really stepped up,” you don’t have an event yet, you have an impression. Watch for the specific thing the impression is built on.</span></label>
-            <label><input type="checkbox" class="tt"><span><b>Consequential</b>It landed on someone or something: a patient, a teammate, a shift, a route, safety. Something that was frustrating in the moment but didn’t reach anyone still deserves a word in your next 1:1. It isn’t a record.</span></label>
-            <label><input type="checkbox" class="tt"><span><b>Attributable</b>It came from a choice this person made. If a courier missed a window because dispatch routed them badly, that’s a dispatch problem wearing a courier’s name.</span></label>
-            <div class="foot"><button class="btn" type="button" id="clearTT">Clear</button></div>
-          </div>
-
-          <h4 id="examples">Things that went wrong… or right</h4>
           <ul class="plain">
-            <li><b>Attendance.</b> A courier clocked in more than thirty minutes late on three shifts inside two weeks. A pharmacy tech didn’t show and didn’t call on three occasions.</li>
+            <li><b>Attendance or job abandonment.</b> A courier clocked in more than thirty minutes late on three shifts inside two weeks. A pharmacy tech didn’t show and didn’t call on three occasions.</li>
             <li><b>Performance.</b> Three delivery exceptions on one route in a week, all avoidable. Incomplete delivery notes. Task volume or quality slipping on the same issue you already coached on.</li>
             <li><b>Behavior.</b> Unprofessional interactions with teammates. A curt tone with a patient on a recorded call.</li>
             <li><b>Misconduct or policy violation.</b> Patient information discussed where it could be overheard. A delivery marked complete that wasn’t. Failure to return an undelivered order to the pharmacy.</li>
@@ -513,20 +370,16 @@ footer p{max-width:64ch}
             </ul>
           </div>
 
-          <h4 id="timing">Timing matters</h4>
-          <p>Say something within two business days, and the same shift when you can. Feedback loses most of its value once the person has moved on, and a correction delivered three weeks late reads as something you were sitting on rather than something you’re helping with.</p>
-          <p>Write the record within five business days. Anyone reading it later can see the gap between when it happened and when you documented it. A five-week gap invites an obvious question. The monitoring period also starts from the conversation date, so a late write-up shortens the period rather than delaying it.</p>
-          <p>This applies more to the good news, not less. Recognition that arrives late doesn’t reinforce anything. It tells the person you noticed eventually.</p>
-          <p>Moving fast isn’t the same as moving before you know. If you need a day to check the route data or listen to the call, take it and say so.</p>
+          <div class="callout info">
+            <b>Resources for this step</b>
+            <p><a href="#res-timing">Best practices: timing</a> — when to speak, when to write it up, and what it costs to wait.</p>
+            <p><a href="#res-quick-checks">Three quick checks</a> — an interactive checklist for deciding whether this rises to a record.</p>
+          </div>
 
-          <h4 id="do-nothing">If you do nothing</h4>
-          <p>The specifics will be the first to be forgotten. In three weeks you’ll remember the shape of what happened and not the date, and a record built on the shape of a thing is a record you can’t defend.</p>
-          <p>If this turns into a pattern later, you’ll need the early instances to show the pattern, and they won’t exist. Most weak warnings are weak because the first two occurrences were never written down.</p>
-          <p>And if it was good and you say nothing, you lose an opportunity to reinforce and encourage the behavior you want more of.</p>
+          <div class="nextup"><b>Next step: Create the record — Manager</b><p>Continue to step 2.</p></div>
         </div>
       </details>
 
-      <!-- step 2 -->
       <details class="step" id="step-2">
         <summary>
           <span class="stepno">Step 2</span>
@@ -535,127 +388,75 @@ footer p{max-width:64ch}
           <p class="trigger">You’ve decided this is worth recording. Now pick the type, the reason, and the level.</p>
         </summary>
         <div class="inner">
-          <h4 id="general-guidelines">General guidelines</h4>
-          <p>Unless a specific team’s policy says otherwise:</p>
-          <ul class="plain">
-            <li><b>A single instance is a Memo of Conversation. A pattern is a Warning.</b> One missed step, handled in a conversation, belongs in a memo. The same thing happening again after you’ve raised it is what a warning is for.</li>
-            <li><b>Don’t skip a level.</b> A second or final warning shouldn’t be issued without a first or second already on file, and a termination notice shouldn’t be issued without a final warning before it.</li>
-          </ul>
-          <div class="callout info"><b>Go to: Data Dashboard</b><p>Use the data dashboard to help you make an informed decision about potential patterns, or the level of warning that’s appropriate for repeated instances.</p></div>
+          <p>Check the team member’s history on the Data Dashboard first, decide which combination of type, reason and level fits, then work through the form. The full walkthrough is in <a href="#create">Create a performance discussion record</a>.</p>
 
-          <h5 id="team-policies">Team-specific policies</h5>
-          <p>Some teams have their own policies that may override the general guidelines above. Where an incident is severe enough, it can jump straight to a second or final warning — or to a termination notice.</p>
-          <p>Logistics maintains a template library covering the incidents that come up most, each with the level it carries and language you can start from. If you manage in Logistics, check it before you pick a level.</p>
-          <p><a class="btn" href="https://docs.google.com/spreadsheets/d/1hcH6euWjeO0mAfXNTUuza4e54ZaM2PzZGJuVrR0lIb8/edit?usp=sharing" target="_blank" rel="noopener">Logistics incident templates &nearr;</a></p>
-          <p class="note">If your team has a policy that isn’t written down anywhere, that’s worth raising with People Operations.</p>
-
-          <h4 id="which-record">Which record do I create?</h4>
-          <p>Pick a combination to see what it produces — whether it needs approval, when the conversation happens, when the document sends, and which sections you’ll fill in.</p>
-          <div class="callout info"><b>Type, reason and level lock at creation</b><p>A wrong pick means canceling and starting again, so it’s worth thirty seconds here.</p></div>
-
-          <div class="picker" id="picker">
-            <div class="controls">
-              <div class="field">
-                <label for="pType">Discussion type</label>
-                <select id="pType">
-                  <option value="">Select a type</option>
-                  <option>Memo of Conversation</option>
-                  <option>Warning</option>
-                  <option>Termination Notice</option>
-                </select>
-              </div>
-              <div class="field" id="fReason" hidden>
-                <label for="pReason">Discussion reason</label>
-                <select id="pReason"><option value="">Select a reason</option></select>
-              </div>
-              <div class="field" id="fLevel" hidden>
-                <label for="pLevel">Warning level</label>
-                <select id="pLevel">
-                  <option value="">Select a level</option>
-                  <option>First</option><option>Second</option><option>Final</option>
-                </select>
-              </div>
-              <div class="field" id="fPolicy" hidden>
-                <label for="pPolicy">Attendance policy</label>
-                <select id="pPolicy">
-                  <option value="">Select</option>
-                  <option>Logistics</option><option>Standard</option>
-                </select>
-              </div>
-            </div>
-            <div id="pOut"><p class="empty">Choose a type and reason above.</p></div>
-            <div style="text-align:right;margin-top:14px"><button class="btn" type="button" id="pClear">Clear</button></div>
+          <div class="callout info">
+            <b>Resources for this step</b>
+            <p><a href="#res-type-reason">Best practices: picking the right type and reason</a> — when a memo is enough and when it’s a warning.</p>
+            <p><a href="#res-which-record">Which record do I create?</a> — pick a combination and see exactly what it produces.</p>
+            <p><a href="#res-team-policies">Team-specific policies</a> — where a team’s own rules override the general guidance.</p>
+            <p><a href="#res-complete-record">Ensuring a complete and accurate record</a> — the criteria your record has to meet before it goes out.</p>
           </div>
 
-          <h4 id="capture">Capture the details</h4>
-          <div class="callout info"><b>Go to: Performance Discussion Actions &gt; By Team Member &gt; Create New Discussion</b><p>Complete this step in Performance Discussion Actions. You can open it in a new tab to keep this walkthrough open while you work.</p></div>
-          <p>Use Performance Discussion Actions to capture the details of the discussion record. Each record type has specific sections that you can fill in, some of which are required.</p>
-          <p>Record what the team member said when you spoke to them, in their words. It shows the conversation happened, and it gives them something to recognize when the document arrives.</p>
-          <p>Read the attestation before you check it, then Submit the record.</p>
-
-          <h5 id="term-different">Termination notices are different</h5>
-          <div class="callout warn"><b>Say nothing to the team member yet</b><p>A termination notice goes to the People Team before the final conversation, not after. Telling someone before the record is approved puts you in a position you can’t walk back if the answer changes.</p></div>
+          <h5 id="term-reminder-2">Reminder: termination notices</h5>
+          <div class="callout warn"><b>Say nothing to the team member yet</b><p>A termination notice goes to the People Team before the final conversation, not after. Having the final conversation before the record is approved can carry unnecessary risk.</p></div>
           <p>The attestation is different too. A termination notice adds a confirmation that the team member is not engaged in protected activity. Read it rather than clicking past it.</p>
+          <p>There’s no action plan section on a termination notice, and the document doesn’t send on approval — you have the conversation first, then send it yourself. Step 4 covers that.</p>
           <div class="callout info">
             <b>Protected activity</b>
             <p>Reporting harassment, discrimination, or a safety concern; filing or supporting a complaint; requesting leave or an accommodation; discussing pay or working conditions with coworkers; taking part in an investigation.</p>
             <p>If any of that might apply, or you’re not sure, stop and contact <a href="mailto:peopleops@capsule.com">peopleops@capsule.com</a> before you check it.</p>
           </div>
-          <p>There’s no action plan section on a termination notice, and the document doesn’t send on approval — you have the conversation first, then send it yourself. Step 4 covers that.</p>
+
+          <div class="nextup"><b>Next and final step for positive feedback — System</b><p>Positive feedback finalizes once submitted and Rippling delivers the document to the team member. Nothing further is needed from the manager or the People Team.</p></div>
+          <div class="nextup"><b>Next step for everything else: Review — People Team, sometimes Manager</b><p>Wait for the People Team to complete their review, outlined in step 3. If it comes back to you, jump to “If it’s Sent Back”.</p></div>
         </div>
       </details>
 
-      <!-- step 3 -->
       <details class="step" id="step-3">
         <summary>
           <span class="stepno">Step 3</span>
           <h4>Review</h4>
-          <div class="badges"><span class="badge">Who takes action: People Team</span><span class="badge">Where this happens: Performance Discussion Actions</span></div>
+          <div class="badges"><span class="badge">Who takes action: People Team (Pending Approval), Manager (Sent Back)</span><span class="badge">Where this happens: Performance Discussion Actions</span></div>
           <p class="trigger">You submitted, and if required, the record gets sent to the People Team for review.</p>
         </summary>
         <div class="inner">
-          <h4 id="positive-straight">Positive feedback goes straight to the record</h4>
-          <p>No approval, no queue, no waiting. It finalizes the moment you submit and the document goes to the team member. Nothing further is needed from you.</p>
-
-          <h4 id="everything-else">Everything else is reviewed before the record is created</h4>
-          <p>One to two business days. Nothing is needed from you in the meantime.</p>
-          <p>The People Team is checking the same criteria you can run yourself, in Create a discussion record: is it specific, is the type and level proportionate to the facts and history, is it timely or explained, does it give a path forward, and is there any reason it shouldn’t proceed.</p>
-          <p>Approval finalizes the record and, for everything except a termination notice, sends the document to the team member automatically. There is no step between their click and the person’s inbox, which is why the review exists.</p>
-
-          <h5 id="term-reminder">Reminder: a termination notice requires approval before the final conversation</h5>
-          <p>People Team reviews it first for completeness and accuracy. Expect more questions here than on any other record type.</p>
-          <div class="callout info"><b>Still say nothing</b><p>Approval means People Operations have signed off. It doesn’t mean the team member has been told, and it doesn’t mean the document has been sent.</p></div>
-
           <div class="audience">
             <span class="tag">People Team only</span>
-            <h4 id="waiting-review">If it’s waiting for your review</h4>
-            <p>Records waiting on you sit on the In Progress tab, with a status of Pending Approval. There are two ways to get to them, and both offer the same actions.</p>
+            <h4 id="pending-approval">If it’s Pending Approval</h4>
+            <p>Records waiting on you sit on the In Progress tab, with a status of Pending Approval. You can reach them in Performance Discussion Actions via:</p>
             <ol class="steps">
               <li><div><b>By Team Member</b><p>Search for the person, open Review Existing Discussions, and their record is on the In Progress tab. Use this when you know whose record you’re looking for.</p></div></li>
-              <li><div><b>By Department</b><p>Load a department and you’ll see a summary of every discussion In Progress across it, each row naming the team member it belongs to.</p><p>Use this when several are waiting. You can work through one department’s queue in a single pass rather than searching name by name, which also makes it easier to see whether similar situations are being handled consistently.</p></div></li>
+              <li><div><b>By Department</b><p>Load a department and you’ll see a summary of every discussion by category, including In Progress.</p><p>Use this when several are waiting. You can work through one department’s queue in a single pass rather than searching name by name, which also makes it easier to see whether similar situations are being handled consistently.</p></div></li>
             </ol>
             <h4 id="two-ways-act">Two ways to act on it</h4>
             <ol class="steps unnumbered">
               <li><div><b>Edit/Review — stay on the page</b><p>Opens the record’s details in place, below the list. Read it through, then click Approve without leaving the page.</p><p>This is the faster route when the record is clearly complete and you have nothing to ask the manager.</p></div></li>
               <li><div><b>View — open the record in a new tab</b><p>Approve from the Actions button at the top right.</p><p>Opening the record also gives you the comments section, where you can talk to the manager directly by tagging them. If something is missing, Send Back is on the same Actions button.</p></div></li>
             </ol>
-            <div class="callout info"><b>Use View whenever the record isn’t ready</b><p>Comments and Send Back both live on the record itself, so anything that needs a conversation with the manager has to go through that tab rather than the in-page view.</p></div>
+            <div class="callout info"><b>Hint: use View whenever the record isn’t ready</b><p>Comments and Send Back both live on the record itself, so anything that needs a conversation with the manager has to go through that tab rather than the in-page view.</p></div>
           </div>
 
-          <h4 id="sent-back">If it gets Sent Back</h4>
-          <p>A send-back isn’t a rejection. It means something specific is missing, and the record can’t go out to the team member until it’s there. Nothing you wrote has been lost.</p>
-          <p>The status changes to Sent Back and you get a notification.</p>
+          <h5 id="sent-back">If it’s Sent Back</h5>
+          <p>If your submission is sent back, you will receive a notification. It means something specific is missing, and the record can’t go out to the team member until it’s complete. Everything you submitted so far has been saved.</p>
           <ol class="steps">
-            <li><div><b>Read the comments</b><p>Open the record to view the comments, which is where the People Team explains what else is needed.</p></div></li>
-            <li><div><b>Fix the section they named</b><p>Find the record under Review Existing Discussions and click Edit/Review. Everything you saved is still there.</p></div></li>
+            <li><div><b>Read the comments</b><p>Open the record to view the comments, which is where the People Team will explain what else is needed.</p></div></li>
+            <li><div><b>Fix the section they named</b><p>Find the record under Review Existing Discussions and click Edit/Review.</p></div></li>
             <li><div><b>Save that section again</b><p>Validate &amp; Save, then re-check the attestation and Submit.</p></div></li>
           </ol>
-          <p>If the comments point at the warning level rather than the content, the record has to be canceled and recreated — level locks at creation. Copy your incident text across before you cancel.</p>
-          <p>If you disagree, say so. Reply to the People Partner rather than rewriting something you think is right. A send-back is a conversation, and they’d rather have it than approve a record you don’t stand behind.</p>
+          <p>If the comments call out the warning level rather than the content, the record has to be canceled and recreated — level locks at creation. You can cancel your record and reference the canceled details under Review Existing Discussions &gt; Canceled.</p>
+          <p>If you need clarification, use the comments to reply to the People Partner.</p>
+
+          <div class="callout info">
+            <b>Resources for this step</b>
+            <p><a href="#res-complete-record">Ensuring a complete and accurate record</a> — the criteria a record has to meet before it goes out.</p>
+            <p><a href="#review">Review existing discussions</a> — finding records by team member, department, status, or time range.</p>
+          </div>
+
+          <div class="nextup"><b>Next step: Finalizing the record — System, sometimes Manager</b><p>Termination notices need manager action in step 4. Everything else is automated.</p></div>
         </div>
       </details>
 
-      <!-- step 4 -->
       <details class="step" id="step-4">
         <summary>
           <span class="stepno">Step 4</span>
@@ -664,23 +465,23 @@ footer p{max-width:64ch}
           <p class="trigger">The record was approved, if needed, and the record moves to finalized.</p>
         </summary>
         <div class="inner">
-          <h4 id="auto-send">For everything except a termination notice</h4>
-          <p>The document sends to the team member automatically. You don’t need to do anything, and there’s no way to hold it once approval has happened.</p>
+          <h5 id="auto-send">For everything except a termination notice</h5>
+          <p>The approval notification comes via email, and the document sends to the team member automatically.</p>
           <p>You’ll find the record on the Active tab under Review Existing Discussions, with the finalized date and the monitoring end date on the row.</p>
-          <p class="note">The document is a written version of a conversation you’ve already had. If the team member is surprised by it, something went wrong at step 2, not here.</p>
 
-          <h4 id="term-send">For a termination notice</h4>
-          <p>This is the one type where the document waits for you, because the team member needs to hear it from you rather than from an automated email. The approval notification comes by email, with a link straight to the record and the instructions for sending it.</p>
+          <h5 id="term-send">For a termination notice</h5>
+          <p>The approval notification comes by email, with a link straight to the record and the instructions for sending it. Then follow the steps below.</p>
           <ol class="steps">
-            <li><div><b>Have the conversation</b><p>Directly, and in-person, if possible.</p></div></li>
+            <li><div><b>Have the conversation</b><p>Directly, and in person if possible.</p></div></li>
             <li><div><b>Send the document</b><p>Open the record from the link in the email, or find it on the Active tab. Click Send Document, then confirm.</p></div></li>
-            <li><div><b>Schedule the offboarding</b><p>Go to the team member’s profile, open the menu at the top right — the three dots — and click Schedule Offboarding.</p><p>You don’t need to attach offboarding documentation if it has already been sent through Rippling. The termination notice you just sent counts.</p><p>Once you submit, the offboarding request goes to People Operations for review and approval. Final pay, equipment, access and benefits are handled from there.</p></div></li>
+            <li><div><b>Schedule the offboarding</b><p>Go to the team member’s profile, open the menu at the top right — the three dots — and click Schedule Offboarding.</p><p>You don’t need to attach offboarding documentation if it has already been sent through Rippling. The termination notice you just sent counts.</p><p>Once you submit, the offboarding request goes to the People Team for review and approval. Final pay, equipment, access and benefits are handled from there.</p></div></li>
           </ol>
-          <div class="callout warn"><b>Confirm the document only once.</b><p>Clicking it a second time generates it again. Sending the document before the conversation notifies them before you’ve had the chance to. There’s no undo.</p></div>
+          <div class="callout warn"><b>Hint: confirm the document only once.</b><p>Clicking it a second time generates it again. Sending the document before the conversation notifies them before you’ve had the chance to. There’s no undo.</p></div>
+
+          <div class="nextup"><b>Next step: monitoring period — Manager</b><p>What to do during the monitoring period, if there is one.</p></div>
         </div>
       </details>
 
-      <!-- step 5 -->
       <details class="step" id="step-5">
         <summary>
           <span class="stepno">Step 5</span>
@@ -689,14 +490,14 @@ footer p{max-width:64ch}
           <p class="trigger">A monitoring period you track, an offboarding, or nothing further.</p>
         </summary>
         <div class="inner">
-          <h4 id="pos-nothing">Positive feedback: nothing further</h4>
+          <h5 id="pos-nothing">Positive feedback: nothing further</h5>
           <p>There’s no monitoring period and nothing to track. It shows in the team member’s history alongside everything else, which is the point — when someone later reads this person’s record, the good is there with the rest of it.</p>
 
-          <h4 id="offboarding">Termination: the offboarding request</h4>
-          <p>The discussion record is complete and the offboarding request is with People Operations. What’s still yours is anything the request asked you to confirm, telling your team in whatever way you’ve agreed with People Operations, and covering the routes, shifts, or open work that were theirs.</p>
-          <div class="callout warn"><p>If anything about the conversation was unexpected — a claim, a complaint, a raised concern — tell People Operations the same day, even if you think it’s minor.</p></div>
+          <h5 id="offboarding">Termination: the offboarding request</h5>
+          <p>The discussion record is complete and the offboarding request is with the People Team. What’s still yours is anything the request asked you to confirm, telling your team in whatever way you’ve agreed with the People Team, and covering the routes, shifts, or open work that were theirs.</p>
+          <div class="callout warn"><p>If anything about the conversation was unexpected — a claim, a complaint, a raised concern — tell the People Team the same day, even if you think it’s minor.</p></div>
 
-          <h4 id="monitoring">Memo or warning: the monitoring period</h4>
+          <h5 id="monitoring">Memo or warning: the monitoring period</h5>
           <p>The period runs from the date you had the conversation, and the end date is on the record. During this period, the record is yours to track.</p>
           <ul class="plain">
             <li>Track the specific things the record named.</li>
@@ -706,7 +507,7 @@ footer p{max-width:64ch}
           </ul>
           <p class="note">If it gets worse during the period, that’s a new record at the next level, not a note on this one. Go back to step 1.</p>
 
-          <h4 id="period-ends">When the period ends</h4>
+          <h5 id="period-ends">When the period ends</h5>
           <p>The record moves from Active to Archived on its own and nothing announces it. Nobody is notified, including the team member — which is why the last step is yours.</p>
           <p>Tell them where they landed. Someone who has spent 90 days working their way out of a warning should not have to guess whether it worked.</p>
         </div>
@@ -715,63 +516,22 @@ footer p{max-width:64ch}
 
     <!-- ============================================ CREATE -->
     <section class="chapter" id="create">
-      <h3 class="ch-title">Create a discussion record</h3>
-      <p class="lede">Start to finish, in By Team Member. Each section of the form saves on its own.</p>
+      <h3 class="ch-title">Create a performance discussion record</h3>
+      <div class="callout info"><b>Go to: Performance Discussion Actions &gt; By Team Member</b><p>Then follow the steps below.</p></div>
 
       <ol class="steps">
         <li><div><b>Select the team member</b><p>Use the search field at the top of Performance Discussion Actions.</p></div></li>
-        <li><div><b>Confirm their information</b><p>Title, department, manager, work location, start date, attendance policy, and discussion counts appear in the panel. If anything’s wrong, fix it on their profile before you go further.</p><p>The panel takes a moment to populate, and the action buttons stay disabled until it has. That’s deliberate — it stops you acting on information that isn’t there yet.</p></div></li>
-        <li><div><b>Pick type, reason, and level</b><p>If you’re unsure which combination fits, use the picker under Walk the process, step 2. Reset Type, Reason, and/or Level while you’re still deciding.</p><p>Once you click Begin New Discussion these are written to the record and locked.</p></div></li>
+        <li><div><b>Confirm their information</b><p>Title, department, manager, work location, start date, attendance policy, and discussion counts appear in the panel. If anything’s wrong, fix it on their profile before you continue.</p><p>The panel takes a moment to populate, and the action buttons stay disabled until it’s ready — that’s there to make sure you’re acting on the correct team member.</p></div></li>
+        <li><div><b>Pick type, reason, and level</b><p>If you’re unsure which combination fits, use <a href="#res-which-record">Which record do I create?</a> Reset Type, Reason, and/or Level while you’re still deciding.</p><p>Once you click Begin New Discussion these are written to the record and locked.</p></div></li>
         <li><div><b>Fill in each section</b><p>Only the sections that apply to your type and reason appear. Every text section needs at least 100 characters.</p><p>Each card has its own Validate &amp; Save. When it saves, the button becomes Edit and the fields lock — that’s your confirmation it went through.</p><p>Editing a saved card unlocks it again, so you’ll need to save it a second time.</p></div></li>
-        <li><div><b>Record the proof of communication</b><p>The date you spoke, the method, and a witness if there was one. A recording is required for Phone Call and Voice Mail.</p><p>The monitoring period is calculated from this date, so it’s worth filling in rather than skipping.</p></div></li>
-        <li><div><b>Attest and submit</b><p>Read the attestation rather than clicking past it. Termination notices carry an additional confirmation about protected activity — see Walk the process, step 2.</p></div></li>
+        <li><div><b>Record the proof of communication</b><p>The date you spoke, the method, and a witness if there was one. A recording is required for Phone Call and Voice Mail.</p><p>The monitoring period is calculated from this date.</p></div></li>
+        <li><div><b>Attest and submit</b><p>Read the attestation. Termination notices carry an additional confirmation about protected activity.</p></div></li>
       </ol>
-      <p class="note">Pasting long text can fail validation. If a section won’t save and the text looks fine, retype a few words anywhere in it and try again.</p>
 
-      <h4 id="five-tests">Submit a complete and accurate record</h4>
-      <p>The same five criteria the People Team considers when they review a record. Run them yourself before you submit and it should clear without coming back.</p>
-
-      <div class="toggles">
-        <div class="tgroup">
-          <label>I am</label>
-          <div class="row" id="modeRow">
-            <button class="pill" type="button" data-mode="write" aria-pressed="true">Writing a record</button>
-            <button class="pill" type="button" data-mode="review" aria-pressed="false">Reviewing one</button>
-          </div>
-        </div>
-        <div class="tgroup">
-          <label>Record category</label>
-          <div class="row" id="typeRow">
-            <button class="pill" type="button" data-type="memo" aria-pressed="true">Memo</button>
-            <button class="pill" type="button" data-type="warning" aria-pressed="false">Warning</button>
-            <button class="pill" type="button" data-type="termination" aria-pressed="false">Termination</button>
-            <button class="pill" type="button" data-type="positive" aria-pressed="false">Positive</button>
-          </div>
-        </div>
-      </div>
-
-      <div id="typeNote"></div>
-
-      <div class="verdict" id="verdict">
-        <p class="q">Is this record ready to be finalized?</p>
-        <p class="v" id="verdictWord">Nothing selected yet.</p>
-        <p class="h" id="verdictHint">As you work down the list, select whether the information in the record meets the bar or needs work. Anything flagged will give you pointers about what to add.</p>
-      </div>
-
-      <div id="testList"></div>
-
-      <h4 id="working-checklist">Working checklist</h4>
-      <p>For the conversation itself. This resets when you leave the page.</p>
-      <div class="checklist" id="wc">
-        <label><input type="checkbox" class="wc"><span>I’ve gathered dates, times, and specifics rather than impressions</span></label>
-        <label><input type="checkbox" class="wc"><span>I’ve checked their attendance balance and discussion history on the Data Dashboard</span></label>
-        <label><input type="checkbox" class="wc"><span>I’ve confirmed their details in the right-hand panel are correct</span></label>
-        <label><input type="checkbox" class="wc"><span>I’ve decided what support or coaching I’m offering</span></label>
-        <label><input type="checkbox" class="wc"><span>I’ve given the team member room to describe the situation first</span></label>
-        <label><input type="checkbox" class="wc"><span>I’ve had the conversation before creating the document</span></label>
-        <label><input type="checkbox" class="wc"><span>Every section shows Edit rather than Validate &amp; Save</span></label>
-        <label><input type="checkbox" class="wc"><span>I’ve read the attestation before checking it</span></label>
-        <div class="foot"><button class="btn" type="button" id="clearWC">Clear</button></div>
+      <div class="callout info">
+        <b>Before you submit</b>
+        <p>Run <a href="#res-complete-record">Ensuring a complete and accurate record</a> against your draft — it’s the same criteria the People Team applies, so anything it flags is what would otherwise come back to you.</p>
+        <p><a href="#res-working-checklist">Working checklist</a> covers the conversation itself.</p>
       </div>
     </section>
 
@@ -781,21 +541,20 @@ footer p{max-width:64ch}
       <p class="lede">Two ways to find a record: one team member at a time, or a whole department at once.</p>
 
       <h4 id="by-team-member">By Team Member</h4>
-      <p>Select someone, then open Review Existing Discussions. Their history is grouped into four tabs by where each discussion has got to.</p>
+      <p>Select someone, then open Review Existing Discussions. Their history is grouped into four tabs by status.</p>
       <div class="tablewrap">
         <table>
           <thead><tr><th>Status</th><th>What it means</th><th>What you can do</th></tr></thead>
           <tbody>
-            <tr><td><b>In Progress</b></td><td>Created but not finalized</td><td>Keep editing or cancel it — and approve, if you’re in People Operations</td></tr>
+            <tr><td><b>In Progress</b></td><td>Created but not finalized</td><td>Keep editing or cancel it — and approve, if you’re on the People Team</td></tr>
             <tr><td><b>Active</b></td><td>Finalized, with a warning or memo still in effect</td><td>Create and send the discussion document</td></tr>
             <tr><td><b>Archived</b></td><td>Finalized, monitoring period passed</td><td>View, and send a document for terminations or positive feedback</td></tr>
             <tr><td><b>Canceled</b></td><td>Withdrawn before completion</td><td>View, and edit if it needs reopening</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="note">In Progress covers everything that isn’t finalized or canceled — a draft, one waiting on People Operations, and one sent back to you all sit there together. Check the status on the row rather than the tab it’s in.</p>
+      <p class="note">In Progress covers everything that isn’t finalized or canceled — a draft, one waiting on the People Team, and one sent back to you all sit there together. Check the status on the row rather than the tab it’s in.</p>
       <p>The list reflects what was there when the page loaded. If you’ve saved something in another tab, use Click to reload recent changes above the tabs.</p>
-      <p>For everything except termination notices, the document sends automatically once the discussion is approved. A termination notice waits until you click Send Document — see Walk the process, step 4.</p>
 
       <h4 id="by-department">By Department</h4>
       <p>Every discussion in a department at once, rather than one team member at a time. Useful for spotting patterns, or checking what’s outstanding before a cycle closes.</p>
@@ -803,7 +562,7 @@ footer p{max-width:64ch}
         <li><div><b>Click Load departments</b><p>The dropdown stays disabled until you do. The list is built against your access, so it takes a few seconds — and only needs loading once per visit.</p></div></li>
         <li><div><b>Pick a department and a timeframe</b><p>One department at a time. The timeframe limits how far back the search goes — it opens on the last week, and a shorter window returns faster.</p></div></li>
         <li><div><b>Narrow by status, if you want to</b><p>Leave Status empty to include everything. Draft covers records where no status has been set yet.</p><p>The Status filter narrows what loads before the tabs group it, so filtering to Finalized empties the In Progress tab. A note appears while a filter is active, as a reminder that an empty tab may be the filter rather than the data.</p></div></li>
-        <li><div><b>Click Load discussions</b><p>Results fill the same four tabs you see under By Team Member, each row naming the team member it belongs to.</p><p>Clicking Edit/Review collapses the discussions list to give the record room. Expand it again from the same header whenever you want it back.</p><p>If the message says more records exist, narrow the timeframe. A department with a long history can hold more than one load can return.</p></div></li>
+        <li><div><b>Click Load discussions</b><p>Results fill the same four tabs you see in By Team Member.</p><p>Clicking Edit/Review collapses the discussions list to give the record room. Expand it again from the same header whenever you want it back.</p><p>If the message says more records exist, narrow the timeframe. A department with a long history can hold more than one load can return.</p></div></li>
       </ol>
     </section>
 
@@ -851,7 +610,7 @@ footer p{max-width:64ch}
 
       <details class="faq"><summary>I approved a termination notice but nothing was sent</summary><div class="inner">
         <p>That’s expected. A termination notice is the one type where the document waits for you: have the conversation first, then find the record on the Active tab and click Send Document, then Confirm.</p>
-        <p>Walk the process, step 4 covers the full sequence, including scheduling the offboarding afterwards.</p>
+        <p><a href="#step-4">Step 4</a> covers the full sequence, including scheduling the offboarding afterwards.</p>
       </div></details>
 
       <details class="faq"><summary>I need to record a discussion about myself</summary><div class="inner">
@@ -874,7 +633,7 @@ footer p{max-width:64ch}
       </div></details>
 
       <details class="faq" id="app-down"><summary>What happens if the app is down?</summary><div class="inner">
-        <p>Email <a href="mailto:peopleops@capsule.com">peopleops@capsule.com</a> with everything you would normally enter in the app — the type, the reason, the warning level if it’s a warning, the dates, and the details. What each type needs is in the picker under Walk the process, step 2.</p>
+        <p>Email <a href="mailto:peopleops@capsule.com">peopleops@capsule.com</a> with everything you would normally enter in the app — the type, the reason, the warning level if it’s a warning, the dates, and the details. What each type needs is in <a href="#res-which-record">Which record do I create?</a></p>
         <p>Write the formal notice yourself. Normally Rippling generates it from what you enter; with the app down, that has to be a document you produce.</p>
         <p><b>What the document needs</b></p>
         <ul class="plain">
@@ -886,9 +645,148 @@ footer p{max-width:64ch}
           <li><b>Closing language.</b> Ask the People Team for the standard text for that type and level. It’s the same wording Rippling adds, and it should appear word for word.</li>
           <li><b>Acknowledgement.</b> A line for the team member’s signature and date, and one for yours, noting that signing acknowledges receipt rather than agreement.</li>
         </ul>
-        <p>Send both to People Operations, ask for approval if the discussion needs it, and copy us on whatever you send the team member. Rippling usually records that the document was delivered, so the CC is how we keep that trail.</p>
+        <p>Send both to the People Team, ask for approval if the discussion needs it, and copy us on whatever you send the team member. Rippling usually records that the document was delivered, so the CC is how we keep that trail.</p>
         <p>Once the app is back up, the People Team can upload it into Rippling on your behalf.</p>
       </div></details>
+    </section>
+
+    <!-- ============================================ ADDITIONAL RESOURCES -->
+    <section class="chapter" id="resources">
+      <h3 class="ch-title">Additional resources</h3>
+      <p class="lede">Everything the steps point to, in one place.</p>
+
+      <details class="res" id="res-timing">
+        <summary>Best practices: timing</summary>
+        <div class="inner">
+          <p>Say something within two business days, and the same shift when you can. Feedback loses most of its value once the person has moved on, and a correction delivered three weeks late creates opportunity for more occurrences before the team member is aware.</p>
+          <p>Write the record within five business days. Anyone reading it later can see the gap between when it happened and when you documented it, and will likely have questions. The monitoring period also starts from the conversation date, so a late write-up shortens the period rather than delaying it.</p>
+          <p>Moving fast and moving right aren’t in conflict. If you need a day to check the route data or listen to the call, you can start the record and come back to it to submit for approval, or cancel it if needed.</p>
+          <p>If you do nothing, you’re likely to forget the specifics, and the recordings or meeting notes will be harder to find. In three weeks you’ll remember the general idea of what happened, but without the details it will be hard to defend. If this turns into a pattern later, you’ll need the early instances to show the pattern, and they won’t exist.</p>
+        </div>
+      </details>
+
+      <details class="res" id="res-quick-checks">
+        <summary>Three quick checks to identify a performance discussion</summary>
+        <div class="inner">
+          <div class="checklist">
+            <p class="hint">Tick these off as you think through the incident or feedback you want to record.</p>
+            <label><input type="checkbox" class="tt"><span><b>Specific</b>You can name the day and say what happened. If the best you can do is “he’s been off lately” or “she’s really stepped up,” you don’t have an event yet, you have an impression. Watch for the specific thing the impression is built on.</span></label>
+            <label><input type="checkbox" class="tt"><span><b>Consequential</b>It landed on someone or something: a patient, a teammate, a shift, a route, safety. Something that was frustrating in the moment but didn’t reach anyone still deserves a word in your next 1:1, but may not be enough for a record.</span></label>
+            <label><input type="checkbox" class="tt"><span><b>Attributable</b>It came from a choice this person made. If a courier missed a window because dispatch routed them badly, that’s a dispatch problem.</span></label>
+            <div class="foot"><button class="btn" type="button" id="clearTT">Clear</button></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="res" id="res-type-reason">
+        <summary>Best practices: picking the right type and reason</summary>
+        <div class="inner">
+          <p>Unless a specific team’s policy says otherwise:</p>
+          <ul class="plain">
+            <li><b>A single instance is a Memo of Conversation. A pattern is a Warning.</b> One missed step, handled in a conversation, belongs in a memo. The same thing happening again after you’ve raised it belongs in a warning.</li>
+            <li><b>Don’t skip a level.</b> A second or final warning shouldn’t be issued without a first or second already on file, and a termination notice shouldn’t be issued without a final warning before it.</li>
+          </ul>
+          <div class="callout info"><b>Hint: check the Data Dashboard</b><p>Use the Data Dashboard to make an informed decision about potential patterns, or the level of warning that’s appropriate for repeated instances.</p></div>
+        </div>
+      </details>
+
+      <details class="res" id="res-which-record">
+        <summary>Which record do I create? — an interactive guide</summary>
+        <div class="inner">
+          <p>Pick a combination to see whether a discussion record needs approval, when the conversation happens, when the document sends, and which sections you’ll fill in.</p>
+          <div class="callout info"><b>Note: type, reason and level lock at creation</b><p>Picking incorrectly means you’ll need to cancel the record and create a new one. The old one lives in Canceled records for your reference.</p></div>
+          <div class="picker" id="picker">
+            <div class="controls">
+              <div class="field">
+                <label for="pType">Discussion type</label>
+                <select id="pType">
+                  <option value="">Select a type</option>
+                  <option>Memo of Conversation</option>
+                  <option>Warning</option>
+                  <option>Termination Notice</option>
+                </select>
+              </div>
+              <div class="field" id="fReason" hidden>
+                <label for="pReason">Discussion reason</label>
+                <select id="pReason"><option value="">Select a reason</option></select>
+              </div>
+              <div class="field" id="fLevel" hidden>
+                <label for="pLevel">Warning level</label>
+                <select id="pLevel"><option value="">Select a level</option><option>First</option><option>Second</option><option>Final</option></select>
+              </div>
+              <div class="field" id="fPolicy" hidden>
+                <label for="pPolicy">Attendance policy</label>
+                <select id="pPolicy"><option value="">Select</option><option>Logistics</option><option>Standard</option></select>
+              </div>
+            </div>
+            <div id="pOut"><p class="empty">Choose a type and reason above.</p></div>
+            <div style="text-align:right;margin-top:14px"><button class="btn" type="button" id="pClear">Clear</button></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="res" id="res-team-policies">
+        <summary>Team-specific policies</summary>
+        <div class="inner">
+          <p>Some teams have their own policies that may override the general guidelines. Where an incident is severe enough, it can jump straight to a second or final warning — or to a termination notice.</p>
+          <p><a class="btn" href="https://docs.google.com/spreadsheets/d/1hcH6euWjeO0mAfXNTUuza4e54ZaM2PzZGJuVrR0lIb8/edit?usp=sharing" target="_blank" rel="noopener">Logistics performance discussion templates &nearr;</a></p>
+          <p class="note">If your team has a policy that isn’t written down anywhere, that’s worth raising with the People Team.</p>
+        </div>
+      </details>
+
+      <details class="res" id="res-complete-record">
+        <summary>Ensuring a complete and accurate record — an interactive guide</summary>
+        <div class="inner">
+          <p>The same five criteria the People Team considers when they review a record. Run them yourself before you submit and it should clear without coming back.</p>
+
+          <div class="toggles">
+            <div class="tgroup">
+              <label>I am</label>
+              <div class="row" id="modeRow">
+                <button class="pill" type="button" data-mode="write" aria-pressed="true">Writing a record</button>
+                <button class="pill" type="button" data-mode="review" aria-pressed="false">Reviewing one</button>
+              </div>
+            </div>
+            <div class="tgroup">
+              <label>Record category</label>
+              <div class="row" id="typeRow">
+                <button class="pill" type="button" data-type="memo" aria-pressed="true">Memo</button>
+                <button class="pill" type="button" data-type="warning" aria-pressed="false">Warning</button>
+                <button class="pill" type="button" data-type="termination" aria-pressed="false">Termination</button>
+                <button class="pill" type="button" data-type="positive" aria-pressed="false">Positive</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="typeNote"></div>
+
+          <div class="verdict" id="verdict">
+            <p class="q">Is this record ready to be finalized?</p>
+            <p class="v" id="verdictWord">Nothing selected yet.</p>
+            <p class="h" id="verdictHint">As you work down the list, select whether the information in the record meets the bar or needs work. Anything flagged will give you pointers about what to add.</p>
+          </div>
+
+          <div id="testList"></div>
+        </div>
+      </details>
+
+      <details class="res" id="res-working-checklist">
+        <summary>Working checklist</summary>
+        <div class="inner">
+          <div class="checklist" id="wc">
+            <p class="hint">For the conversation itself. This resets when you leave the page.</p>
+            <label><input type="checkbox" class="wc"><span>I’ve gathered dates, times, and specifics rather than impressions</span></label>
+            <label><input type="checkbox" class="wc"><span>I’ve checked their attendance balance and discussion history on the Data Dashboard</span></label>
+            <label><input type="checkbox" class="wc"><span>I’ve confirmed their details in the right-hand panel are correct</span></label>
+            <label><input type="checkbox" class="wc"><span>I’ve decided what support or coaching I’m offering</span></label>
+            <label><input type="checkbox" class="wc"><span>I’ve given the team member room to describe the situation first</span></label>
+            <label><input type="checkbox" class="wc"><span>I’ve had the conversation before creating the document</span></label>
+            <label><input type="checkbox" class="wc"><span>Every section shows Edit rather than Validate &amp; Save</span></label>
+            <label><input type="checkbox" class="wc"><span>I’ve read the attestation before checking it</span></label>
+            <div class="foot"><button class="btn" type="button" id="clearWC">Clear</button></div>
+          </div>
+        </div>
+      </details>
     </section>
 
     <footer>
@@ -901,6 +799,7 @@ footer p{max-width:64ch}
 <script>
 (function(){
 "use strict";
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
 
 /* ============================ record picker ============================ */
 var REASONS = {
@@ -912,8 +811,6 @@ var pType=document.getElementById("pType"),pReason=document.getElementById("pRea
     pLevel=document.getElementById("pLevel"),pPolicy=document.getElementById("pPolicy"),
     fReason=document.getElementById("fReason"),fLevel=document.getElementById("fLevel"),
     fPolicy=document.getElementById("fPolicy"),pOut=document.getElementById("pOut");
-
-function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
 
 function monitoring(t,r,l,p){
   if(t!=="Warning")return null;
@@ -927,7 +824,6 @@ function secRow(name,on,whyOn,whyOff){
 }
 function renderPicker(){
   var t=pType.value,r=pReason.value,l=pLevel.value,p=pPolicy.value;
-
   fReason.hidden=!t;
   if(t){
     var cur=pReason.value;
@@ -937,13 +833,12 @@ function renderPicker(){
   }
   fLevel.hidden=t!=="Warning";
   fPolicy.hidden=!(t==="Warning"&&r==="Attendance");
-
   if(!t||!r){pOut.innerHTML='<p class="empty">'+(t?"Choose a reason.":"Choose a type and reason above.")+'</p>';return;}
 
   var pos=r==="Positive Feedback", term=t==="Termination Notice", ja=r==="Job Abandonment";
   var h='<div class="facts">';
   h+='<div class="fact"><span class="k">Needs approval</span><span class="v '+(pos?"yes":"wait")+'">'+
-      (pos?"No — finalizes when you submit":"Yes — People Operations, 1–2 business days")+'</span></div>';
+      (pos?"No — finalizes when you submit":"Yes — People Team, 1–2 business days")+'</span></div>';
   h+='<div class="fact"><span class="k">The conversation happens</span><span class="v">'+
       (term?"After approval, before you send the document":"Before you create the record")+'</span></div>';
   h+='<div class="fact"><span class="k">Document sends</span><span class="v">'+
@@ -952,7 +847,7 @@ function renderPicker(){
   if(mon)h+='<div class="fact"><span class="k">Monitoring period</span><span class="v">'+esc(mon)+'</span></div>';
   h+='</div>';
 
-  h+='<span class="k" style="font-size:.74rem;font-weight:600;color:var(--ink-faint)">Sections you\u2019ll fill in</span><ul class="seclist">';
+  h+='<span style="display:block;font-size:.74rem;font-weight:600;color:var(--ink-faint);margin-bottom:4px">Sections you\u2019ll fill in</span><ul class="seclist">';
   h+=secRow("Feedback Details",pos,"Date of feedback, and what was said","Only for Positive Feedback");
   h+=secRow("Incident Details",!pos,ja?"Three no-call-no-show dates, then the details":"Date of incident, and what happened","Not used for Positive Feedback");
   h+=secRow("Prior Matters",!pos,"Optional — link any active discussions","Not used for Positive Feedback");
@@ -961,9 +856,8 @@ function renderPicker(){
   h+=secRow("Proof of Communication",true,"Date, method, and any recording or email","");
   h+='</ul>';
 
-  if(term)h+='<p class="note" style="margin-top:14px">Say nothing to the team member until this is approved — see <a href="#term-different">Termination notices are different</a>.</p>';
+  if(term)h+='<p class="note" style="margin-top:14px">Say nothing to the team member until this is approved \u2014 see <a href="#term-reminder-2">Reminder: termination notices</a>.</p>';
   if(ja)h+='<p class="note" style="margin-top:14px">You\u2019ll need three no-call-no-show dates in order, each on or before the discussion date. The third becomes the date of incident.</p>';
-
   pOut.innerHTML=h;
 }
 [pType,pReason,pLevel,pPolicy].forEach(function(el){el.addEventListener("change",renderPicker);});
@@ -1048,7 +942,7 @@ function renderNote(){
   if(st.type==="termination"){
     typeNote.innerHTML='<div class="callout warn"><b>Termination notice</b><p>The conversation has not happened yet. Approving means it will. Every test at the highest bar, and check the decision has been through whatever sign-off Capsule requires outside this system.</p></div>';
   }else if(st.type==="positive"){
-    typeNote.innerHTML='<div class="callout good"><b>Positive feedback doesn\u2019t come to People Operations</b><p>Approval isn\u2019t required, so it finalizes the moment you submit. Two tests still matter to whoever writes it: be specific, and be prompt.</p></div>';
+    typeNote.innerHTML='<div class="callout good"><b>Positive feedback doesn\u2019t come to the People Team</b><p>Approval isn\u2019t required, so it finalizes the moment you submit. Two tests still matter to whoever writes it: be specific, and be prompt.</p></div>';
   }else{typeNote.innerHTML="";}
 }
 function renderVerdict(){
@@ -1068,8 +962,7 @@ function renderAll(){renderTests();renderNote();renderVerdict();}
 testList.addEventListener("click",function(e){
   var b=e.target.closest(".mk");if(!b)return;
   var id=b.dataset.id,v=b.dataset.v;
-  st.marks[id]=st.marks[id]===v?"":v;
-  renderAll();
+  st.marks[id]=st.marks[id]===v?"":v;renderAll();
 });
 document.getElementById("modeRow").addEventListener("click",function(e){
   var b=e.target.closest("button");if(!b)return;
@@ -1085,7 +978,6 @@ document.getElementById("typeRow").addEventListener("click",function(e){
 });
 renderAll();
 
-/* ============================ checklists ============================ */
 document.getElementById("clearTT").addEventListener("click",function(){
   [].forEach.call(document.querySelectorAll(".tt"),function(c){c.checked=false;});
 });
@@ -1107,35 +999,35 @@ var used={};
   h.appendChild(a);
 });
 
-/* ============================ index / ToC ============================ */
+/* ============================ index ============================ */
 var CHAPTERS=[
   {id:"before",t:"Before you start"},
   {id:"where",t:"Where things live / Who can access"},
-  {id:"walk",t:"Walk the process"},
-  {id:"create",t:"Create a discussion record"},
+  {id:"walk",t:"Step-by-step process"},
+  {id:"create",t:"Create a performance discussion record"},
   {id:"review",t:"Review existing discussions"},
-  {id:"faq",t:"FAQ"}
+  {id:"faq",t:"FAQ"},
+  {id:"resources",t:"Additional resources"}
 ];
 var toc=document.getElementById("toc");
-
 function buildToc(){
   var html="<ul>";
   CHAPTERS.forEach(function(c){
     var sec=document.getElementById(c.id);
     html+='<li class="ch"><a href="#'+c.id+'">'+esc(c.t)+'</a><ul class="sub">';
-    // Walk the process indexes its five steps; everything else indexes h4s.
     if(c.id==="walk"){
       [].forEach.call(sec.querySelectorAll("details.step"),function(d){
         var no=d.querySelector(".stepno").textContent;
         var ti=d.querySelector("summary h4").childNodes[0].textContent.trim();
         html+='<li><a href="#'+d.id+'">'+esc(no+" \u2014 "+ti)+'</a></li>';
-        [].forEach.call(d.querySelectorAll(".inner > h4, .inner .audience > h4"),function(h){
-          html+='<li class="deep"><a href="#'+h.id+'">'+esc(h.firstChild.textContent.trim())+'</a></li>';
-        });
       });
     }else if(c.id==="faq"){
       [].forEach.call(sec.querySelectorAll("details.faq"),function(d,i){
         if(!d.id)d.id="faq-"+i;
+        html+='<li><a href="#'+d.id+'">'+esc(d.querySelector("summary").textContent.trim())+'</a></li>';
+      });
+    }else if(c.id==="resources"){
+      [].forEach.call(sec.querySelectorAll("details.res"),function(d){
         html+='<li><a href="#'+d.id+'">'+esc(d.querySelector("summary").textContent.trim())+'</a></li>';
       });
     }else{
@@ -1149,59 +1041,45 @@ function buildToc(){
 }
 buildToc();
 
-/* Open the containing <details> when a link points inside one. */
 function openAncestors(el){
   var n=el;
-  while(n&&n!==document.body){
-    if(n.tagName==="DETAILS")n.open=true;
-    n=n.parentNode;
-  }
+  while(n&&n!==document.body){if(n.tagName==="DETAILS")n.open=true;n=n.parentNode;}
 }
 function goTo(id){
-  var el=document.getElementById(id);
-  if(!el)return;
+  var el=document.getElementById(id);if(!el)return;
   openAncestors(el);
   if(el.tagName==="DETAILS")el.open=true;
   setTimeout(function(){el.scrollIntoView({behavior:"smooth",block:"start"});},20);
 }
 document.addEventListener("click",function(e){
   var a=e.target.closest('a[href^="#"]');if(!a)return;
-  var id=a.getAttribute("href").slice(1);
-  if(!id)return;
+  var id=a.getAttribute("href").slice(1);if(!id)return;
   if(document.getElementById(id)){e.preventDefault();goTo(id);history.replaceState(null,"","#"+id);}
 });
 if(location.hash)setTimeout(function(){goTo(location.hash.slice(1));},80);
 
 /* ============================ search ============================ */
 var INDEX=[];
-function buildIndex(){
+(function buildIndex(){
   CHAPTERS.forEach(function(c){
     var sec=document.getElementById(c.id);
-    // A record per heading, carrying the text up to the next heading.
-    var nodes=sec.querySelectorAll("h3.ch-title, h4, h5, details.step > summary, details.faq > summary");
+    var nodes=sec.querySelectorAll("h3.ch-title, h4, h5, details.step > summary, details.faq > summary, details.res > summary");
     [].forEach.call(nodes,function(h){
-      var id,title;
+      var id,title,text="";
       if(h.tagName==="SUMMARY"){
-        var d=h.parentNode;
-        id=d.id;
+        var d=h.parentNode;id=d.id;
         title=h.querySelector("h4")?h.querySelector("h4").childNodes[0].textContent.trim():h.textContent.trim();
+        text=d.textContent;
       }else{
         id=h.id;title=h.firstChild.textContent.trim();
-      }
-      if(!id)return;
-      var scope=h.tagName==="SUMMARY"?h.parentNode:h;
-      var text="";
-      if(h.tagName==="SUMMARY"){
-        text=h.parentNode.textContent;
-      }else{
         var n=h.nextElementSibling;
         while(n&&!/^H[3-5]$/.test(n.tagName)){text+=" "+n.textContent;n=n.nextElementSibling;}
       }
+      if(!id)return;
       INDEX.push({id:id,title:title,chapter:c.t,text:(title+" "+text).replace(/\s+/g," ").trim()});
     });
   });
-}
-buildIndex();
+})();
 
 var q=document.getElementById("q"),clearq=document.getElementById("clearq"),hits=document.getElementById("hits");
 function snippet(text,term){
@@ -1221,13 +1099,11 @@ function search(term){
     var low=r.text.toLowerCase(),score=0;
     words.forEach(function(w){
       if(r.title.toLowerCase().indexOf(w)>-1)score+=6;
-      var c=low.split(w).length-1;
-      score+=Math.min(c,4);
+      score+=Math.min(low.split(w).length-1,4);
     });
     return {r:r,score:score};
   }).filter(function(x){return x.score>0;})
-    .sort(function(a,b){return b.score-a.score;})
-    .slice(0,25);
+    .sort(function(a,b){return b.score-a.score;}).slice(0,25);
 
   hits.hidden=false;
   hits.textContent=res.length?res.length+(res.length===1?" match":" matches"):"No matches";
@@ -1255,30 +1131,20 @@ document.addEventListener("keydown",function(e){
 
 /* ============================ scrollspy ============================ */
 var spyTargets=[];
-function buildSpy(){
-  spyTargets=[];
-  CHAPTERS.forEach(function(c){
-    spyTargets.push(document.getElementById(c.id));
-    [].forEach.call(document.getElementById(c.id).querySelectorAll("h4"),function(h){spyTargets.push(h);});
-  });
-}
-buildSpy();
+CHAPTERS.forEach(function(c){
+  spyTargets.push(document.getElementById(c.id));
+  [].forEach.call(document.getElementById(c.id).querySelectorAll("h4"),function(h){spyTargets.push(h);});
+});
 function spy(){
   if(q.value.trim())return;
   var y=window.scrollY+120,best=null;
-  spyTargets.forEach(function(el){
-    if(el&&el.getBoundingClientRect().top+window.scrollY<=y)best=el;
-  });
+  spyTargets.forEach(function(el){if(el&&el.getBoundingClientRect().top+window.scrollY<=y)best=el;});
   [].forEach.call(toc.querySelectorAll("a"),function(a){a.classList.remove("here");});
-  if(best){
-    var a=toc.querySelector('a[href="#'+best.id+'"]');
-    if(a){a.classList.add("here");}
-  }
+  if(best){var a=toc.querySelector('a[href="#'+best.id+'"]');if(a)a.classList.add("here");}
 }
-window.addEventListener("scroll",spy,{passive:true});
-spy();
+window.addEventListener("scroll",spy,{passive:true});spy();
 
-/* ============================ expand all / print ============================ */
+/* ============================ expand / print ============================ */
 var allOpen=false;
 document.getElementById("expandAll").addEventListener("click",function(){
   allOpen=!allOpen;
